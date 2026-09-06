@@ -2,7 +2,7 @@
 
 A modern, high-performance portfolio website built with **Next.js (App Router)**, **Tailwind CSS v4**, and **Framer Motion**. Designed to showcase projects, skills, and freelance availability with a premium dark-themed glassmorphic aesthetic.
 
-![Portfolio Preview](public/images/Screenshot 2026-09-06 212320.png)
+![Portfolio Preview](public/images/Screenshot%202026-09-06%20212320.png)
 
 ## 🌟 Features
 
