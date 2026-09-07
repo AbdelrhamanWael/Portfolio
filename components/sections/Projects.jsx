@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubLogo, ArrowSquareOut, ArrowRight, Star } from "@phosphor-icons/react";
-import { projects } from "@/lib/data/projects";
+import { projects, fetchProjectsFromSupabase } from "@/lib/data/projects";
 
 const categoryColors = {
   "AI & Agents":      { bg: "rgba(34,197,94,0.1)",   text: "#22c55e", border: "rgba(34,197,94,0.25)",  glow: "rgba(34,197,94,0.15)" },
@@ -14,10 +14,18 @@ const categoryColors = {
 };
 
 export default function Projects() {
+  const [projectList, setProjectList] = useState(projects);
+
+  useEffect(() => {
+    fetchProjectsFromSupabase().then((data) => {
+      if (data && data.length > 0) setProjectList(data);
+    });
+  }, []);
+
   // Get only 1 project per category (newest = first in array)
   const filtered = [];
   const seen = new Set();
-  for (const p of projects) {
+  for (const p of projectList) {
     if (!seen.has(p.category)) {
       seen.add(p.category);
       filtered.push(p);

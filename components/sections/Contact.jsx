@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { EnvelopeSimple, LinkedinLogo, GithubLogo, PaperPlaneTilt, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import emailjs from "@emailjs/browser";
+import { supabase } from "@/lib/supabase";
 
 const contactLinks = [
   {
@@ -39,19 +39,33 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.name || !form.email || !form.message) {
+      setStatus({ type: "error", message: "Please fill in all fields." });
+      return;
+    }
     setSending(true);
     setStatus({ type: "", message: "" });
     try {
-      await emailjs.sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current,
-        "YOUR_PUBLIC_KEY"
-      );
-      setStatus({ type: "success", message: "Message sent! I'll get back to you within 24 hours." });
+      const { error } = await supabase.from("messages").insert([
+        {
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+        },
+      ]);
+      if (error) throw error;
+
+      setStatus({
+        type: "success",
+        message: "Message sent! I'll get back to you within 24 hours.",
+      });
       setForm({ name: "", email: "", message: "" });
-    } catch {
-      setStatus({ type: "error", message: "Failed to send. Please email me directly." });
+    } catch (err) {
+      console.error("Failed to send message via Supabase:", err);
+      setStatus({
+        type: "error",
+        message: "Failed to send. Please email me directly at abdelrhamanwael8@gmail.com",
+      });
     } finally {
       setSending(false);
     }

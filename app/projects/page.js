@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GithubLogo, ArrowSquareOut, ArrowRight, ArrowLeft, Star } from "@phosphor-icons/react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { projects, filters } from "@/lib/data/projects";
+import { projects, filters, fetchProjectsFromSupabase } from "@/lib/data/projects";
 
 const categoryColors = {
   "AI & Agents":      { bg: "rgba(34,197,94,0.1)",   text: "#22c55e", border: "rgba(34,197,94,0.25)",  glow: "rgba(34,197,94,0.15)" },
@@ -18,12 +18,16 @@ const categoryColors = {
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");
   const [mounted, setMounted] = useState(false);
+  const [projectList, setProjectList] = useState(projects);
 
   useEffect(() => {
     setMounted(true);
+    fetchProjectsFromSupabase().then((data) => {
+      if (data && data.length > 0) setProjectList(data);
+    });
   }, []);
 
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+  const filtered = active === "All" ? projectList : projectList.filter((p) => p.category === active);
 
   if (!mounted) return null;
 
