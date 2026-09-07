@@ -2,6 +2,7 @@ import "./globals.css";
 import CustomCursor from "@/components/ui/CustomCursor";
 
 export const metadata = {
+  metadataBase: new URL("https://abdelrhamanwael.vercel.app"),
   title: "Abdelrhaman Wael | Full Stack Developer",
   description:
     "Full Stack Developer specializing in React, .NET, and modern web technologies. Building exceptional digital experiences from Cairo, Egypt.",

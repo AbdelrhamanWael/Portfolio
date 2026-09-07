@@ -3,7 +3,7 @@ import { projects } from "@/lib/data/projects";
 export default function sitemap() {
   // Replace this with your production domain (or set NEXT_PUBLIC_SITE_URL in your environment)
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-abdelrhamanwael.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://abdelrhamanwael.vercel.app";
 
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/project/${project.id}`,
