@@ -29,7 +29,7 @@ const contactLinks = [
 
 export default function Contact() {
   const formRef = useRef(null);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [sending, setSending] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
@@ -39,7 +39,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      setStatus({ type: "error", message: "Please fill in all fields." });
+      setStatus({ type: "error", message: "Please fill in all required fields." });
       return;
     }
     setSending(true);
@@ -60,7 +60,7 @@ export default function Contact() {
         type: "success",
         message: "Message sent! I'll get back to you within 24 hours.",
       });
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
       console.error("Failed to send message:", err);
       setStatus({
@@ -211,6 +211,27 @@ export default function Contact() {
                       color: "#F8FAFC"
                     }}
                     onFocus={() => setFocusedInput("email")}
+                    onBlur={() => setFocusedInput(null)}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className="relative">
+                  <label htmlFor="contact-phone" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">
+                    Phone Number <span className="text-xs font-normal text-[#8a9bb0]">(Optional)</span>
+                  </label>
+                  <input
+                    id="contact-phone" type="tel" name="phone"
+                    value={form.phone} onChange={handleChange}
+                    placeholder="+20 100 000 0000"
+                    className={inputClass}
+                    style={{
+                      background: "rgba(5,5,5,0.5)",
+                      border: focusedInput === "phone" ? "1px solid rgba(91,164,196,0.8)" : "1px solid rgba(255,255,255,0.1)",
+                      boxShadow: focusedInput === "phone" ? "0 0 20px rgba(91,164,196,0.2)" : "none",
+                      color: "#F8FAFC"
+                    }}
+                    onFocus={() => setFocusedInput("phone")}
                     onBlur={() => setFocusedInput(null)}
                   />
                 </div>

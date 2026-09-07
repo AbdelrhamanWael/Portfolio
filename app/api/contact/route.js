@@ -13,7 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { name, email, phone, message } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -27,6 +27,7 @@ export async function POST(request) {
       {
         name: name.trim(),
         email: email.trim(),
+        phone: phone ? phone.trim() : null,
         message: message.trim(),
       },
     ]);
@@ -52,6 +53,7 @@ export async function POST(request) {
               <div style="background: #ffffff; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
                 <p style="margin: 0 0 10px 0; color: #334155; font-size: 15px;"><strong>Sender:</strong> ${name.trim()}</p>
                 <p style="margin: 0 0 10px 0; color: #334155; font-size: 15px;"><strong>Email:</strong> <a href="mailto:${email.trim()}" style="color: #0284c7; text-decoration: none;">${email.trim()}</a></p>
+                <p style="margin: 0 0 10px 0; color: #334155; font-size: 15px;"><strong>Phone:</strong> ${phone ? `<a href="tel:${phone.trim()}" style="color: #0284c7; text-decoration: none;">${phone.trim()}</a>` : '<span style="color: #94a3b8;">Not provided</span>'}</p>
                 <p style="margin: 0; color: #64748b; font-size: 13px;"><strong>Received:</strong> ${new Date().toLocaleString()}</p>
               </div>
 
