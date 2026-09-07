@@ -27,6 +27,9 @@ export const metadata = {
     title: "Abdelrhaman Wael | Full Stack Developer",
     description: "Full Stack Developer building exceptional digital experiences.",
   },
+  verification: {
+    google: "Un2Pg5in0QqkzB0SlMXGXqNR7SbbDg2UODQ2-PtH9ew",
+  },
 };
 
 export default function RootLayout({ children }) {
