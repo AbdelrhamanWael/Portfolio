@@ -16,9 +16,9 @@ export default function Footer() {
 
   return (
     <footer className="relative py-12 overflow-hidden"
-      style={{ background: "#11212D", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      style={{ background: "#020408", borderTop: "1px solid rgba(56,189,248,0.08)" }}>
       <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #5BA4C4 30%, #9BA8AB 70%, transparent)" }} />
+        style={{ background: "linear-gradient(90deg, transparent, rgba(56,189,248,0.5) 30%, rgba(129,140,248,0.5) 70%, transparent)" }} />
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -42,8 +42,8 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", color: "#9BA8AB" }}
-                whileHover={{ background: "rgba(91,164,196,0.15)", borderColor: "rgba(91,164,196,0.4)", color: "#5BA4C4", scale: 1.1 }}
+                style={{ background: "rgba(14,28,43,0.8)", border: "1px solid rgba(56,189,248,0.1)", color: "#8a9bb0" }}
+                whileHover={{ background: "rgba(56,189,248,0.12)", borderColor: "rgba(56,189,248,0.4)", color: "#38bdf8", scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <Icon size={18} weight="regular" />
@@ -56,8 +56,8 @@ export default function Footer() {
             onClick={scrollTop}
             aria-label="Back to top"
             className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl transition-all duration-200"
-            style={{ background: "rgba(91,164,196,0.1)", border: "1px solid rgba(91,164,196,0.2)", color: "#5BA4C4" }}
-            whileHover={{ background: "rgba(91,164,196,0.2)", scale: 1.05 }}
+            style={{ background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.2)", color: "#38bdf8" }}
+            whileHover={{ background: "rgba(56,189,248,0.16)", scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <ArrowUp size={16} />
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-          <p className="text-xs" style={{ color: "#334155" }}>
+          <p className="text-xs" style={{ color: "rgba(56,189,248,0.25)" }}>
             Built with Next.js · Tailwind CSS · Framer Motion · Phosphor Icons
           </p>
         </div>
