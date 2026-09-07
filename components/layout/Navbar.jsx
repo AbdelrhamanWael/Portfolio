@@ -51,9 +51,9 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(10,10,15,0.9)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+        background: scrolled ? "rgba(2,4,8,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(24px) saturate(1.6)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(56,189,248,0.08)" : "none",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
@@ -84,15 +84,15 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 + 0.3 }}
                 className="relative px-3 py-2 text-sm font-medium transition-colors duration-200"
-                style={{ color: isActive ? "#5BA4C4" : "#9BA8AB" }}
-                whileHover={{ color: "#fff" }}
+                style={{ color: isActive ? "#38bdf8" : "#8a9bb0" }}
+                whileHover={{ color: "#e8eef4" }}
               >
                 {item.name}
                 {isActive && (
                   <motion.span
                     layoutId="activeNav"
                     className="absolute bottom-0 left-2 right-2 h-px"
-                    style={{ background: "#5BA4C4" }}
+                    style={{ background: "linear-gradient(90deg, #38bdf8, #818cf8)" }}
                   />
                 )}
               </motion.a>
@@ -101,9 +101,9 @@ export default function Navbar() {
           <motion.a
             href="#contact"
             onClick={(e) => scrollTo(e, "#contact")}
-            className="ml-4 px-5 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200"
-            style={{ background: "#5BA4C4", color: "#06141B" }}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(91,164,196,0.5)" }}
+            className="ml-4 px-5 py-2 rounded-lg text-sm font-bold text-white transition-all duration-200"
+            style={{ background: "linear-gradient(135deg, #38bdf8, #0ea5e9)", color: "#020408", boxShadow: "0 4px 16px rgba(56,189,248,0.3)" }}
+            whileHover={{ scale: 1.05, boxShadow: "0 6px 24px rgba(56,189,248,0.5)" }}
             whileTap={{ scale: 0.95 }}
           >
             Hire Me
@@ -132,7 +132,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="md:hidden overflow-hidden"
-            style={{ background: "rgba(10,10,15,0.98)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "rgba(2,4,8,0.98)", borderTop: "1px solid rgba(56,189,248,0.08)" }}
           >
             <div className="px-6 py-4 flex flex-col gap-2">
               {navItems.map((item, i) => (
@@ -145,8 +145,8 @@ export default function Navbar() {
                   transition={{ delay: i * 0.05 }}
                   className="py-3 px-4 rounded-lg text-sm font-medium transition-all"
                   style={{
-                    color: activeSection === item.href.replace("#", "") ? "#5BA4C4" : "#9BA8AB",
-                    background: activeSection === item.href.replace("#", "") ? "rgba(91,164,196,0.1)" : "transparent",
+                    color: activeSection === item.href.replace("#", "") ? "#38bdf8" : "#8a9bb0",
+                    background: activeSection === item.href.replace("#", "") ? "rgba(56,189,248,0.08)" : "transparent",
                   }}
                 >
                   {item.name}

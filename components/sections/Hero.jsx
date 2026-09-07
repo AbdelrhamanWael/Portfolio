@@ -54,18 +54,20 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: "#06141B" }}>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: "#020408" }}>
       {/* Background orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="orb1 absolute top-1/4 left-1/6 w-[500px] h-[500px] rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #253745 0%, transparent 70%)" }} />
-        <div className="orb2 absolute bottom-1/4 right-1/6 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, #5BA4C4 0%, transparent 70%)" }} />
+        <div className="orb1 absolute top-1/4 left-1/6 w-[600px] h-[600px] rounded-full opacity-12"
+          style={{ background: "radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 65%)" }} />
+        <div className="orb2 absolute bottom-1/4 right-1/6 w-[700px] h-[700px] rounded-full opacity-8"
+          style={{ background: "radial-gradient(circle, rgba(129,140,248,0.12) 0%, transparent 65%)" }} />
+        <div className="orb3 absolute top-3/4 left-1/3 w-[400px] h-[400px] rounded-full opacity-6"
+          style={{ background: "radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 65%)" }} />
+        {/* Top line accent */}
         <div className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, #4A5C6A 30%, #5BA4C4 70%, transparent)" }} />
-        {/* Grid */}
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "linear-gradient(rgba(91,164,196,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(91,164,196,0.07) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+          style={{ background: "linear-gradient(90deg, transparent, rgba(56,189,248,0.5) 30%, rgba(129,140,248,0.5) 70%, transparent)" }} />
+        {/* Grid pattern */}
+        <div className="absolute inset-0 grid-pattern opacity-60" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pt-24 pb-12 w-full">
@@ -74,7 +76,7 @@ export default function Hero() {
           <motion.div variants={containerVars} initial="hidden" animate="visible" className="order-2 lg:order-1">
             <motion.div variants={itemVars} className="mb-6">
               <span className="section-tag">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
+                <span className="w-2 h-2 rounded-full animate-pulse inline-block" style={{ background: "#22c55e", boxShadow: "0 0 8px #22c55e" }} />
                 Available for Freelance
               </span>
             </motion.div>
@@ -84,7 +86,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.h1 variants={itemVars} className="font-black leading-[1.05] mb-4"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", color: "#CCD0CF" }}>
+              style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", color: "#e8eef4", letterSpacing: "-0.02em" }}>
               Abdelrhaman
               <br />
               <span className="gradient-text">Wael</span>
@@ -92,9 +94,9 @@ export default function Hero() {
 
             {/* Typewriter */}
             <motion.div variants={itemVars} className="flex items-center gap-2 mb-6 h-10">
-              <span className="text-2xl font-bold" style={{ color: "#5BA4C4" }}>{displayed}</span>
+              <span className="text-2xl font-bold" style={{ color: "#38bdf8", textShadow: "0 0 20px rgba(56,189,248,0.4)" }}>{displayed}</span>
               <motion.span className="w-0.5 h-7 rounded-sm"
-                style={{ background: "#5BA4C4" }}
+                style={{ background: "#38bdf8" }}
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.9, repeat: Infinity }} />
             </motion.div>
@@ -108,9 +110,9 @@ export default function Hero() {
             <motion.div variants={itemVars} className="flex flex-wrap gap-4 mb-8">
               <motion.button
                 onClick={() => scrollTo("projects")}
-                className="px-7 py-3.5 rounded-xl font-semibold transition-all duration-200"
-                style={{ background: "#5BA4C4", color: "#06141B" }}
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(91,164,196,0.45)" }}
+                className="px-7 py-3.5 rounded-xl font-bold transition-all duration-200"
+                style={{ background: "linear-gradient(135deg, #38bdf8, #0ea5e9)", color: "#020408", boxShadow: "0 4px 20px rgba(56,189,248,0.3)" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(56,189,248,0.5)" }}
                 whileTap={{ scale: 0.95 }}
               >
                 View My Work
@@ -118,8 +120,8 @@ export default function Hero() {
               <motion.button
                 onClick={() => scrollTo("contact")}
                 className="px-7 py-3.5 rounded-xl font-semibold transition-all duration-200"
-                style={{ color: "#CCD0CF", border: "1px solid #4A5C6A", background: "transparent" }}
-                whileHover={{ scale: 1.05, borderColor: "#5BA4C4", color: "#5BA4C4", background: "rgba(91,164,196,0.08)" }}
+                style={{ color: "#e8eef4", border: "1.5px solid rgba(56,189,248,0.3)", background: "transparent", backdropFilter: "blur(8px)" }}
+                whileHover={{ scale: 1.05, borderColor: "#38bdf8", color: "#38bdf8", background: "rgba(56,189,248,0.08)" }}
                 whileTap={{ scale: 0.95 }}
               >
                 Get In Touch
@@ -136,14 +138,14 @@ export default function Hero() {
                 <motion.a key={label} href={href} target="_blank" rel="noopener noreferrer"
                   aria-label={label}
                   className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200"
-                  style={{ background: "rgba(37,55,69,0.5)", border: "1px solid rgba(74,92,106,0.5)", color: "#9BA8AB" }}
-                  whileHover={{ scale: 1.15, background: "rgba(91,164,196,0.15)", borderColor: "rgba(91,164,196,0.5)", color: "#5BA4C4" }}
+                  style={{ background: "rgba(14,28,43,0.8)", border: "1px solid rgba(56,189,248,0.15)", color: "#8a9bb0" }}
+                  whileHover={{ scale: 1.15, background: "rgba(56,189,248,0.1)", borderColor: "rgba(56,189,248,0.5)", color: "#38bdf8", boxShadow: "0 0 16px rgba(56,189,248,0.2)" }}
                   whileTap={{ scale: 0.9 }}
                 >
                   <Icon size={20} weight="regular" />
                 </motion.a>
               ))}
-              <span className="text-sm ml-2" style={{ color: "#4A5C6A" }}>— Connect with me</span>
+              <span className="text-sm ml-2" style={{ color: "#1e3448" }}>— Connect with me</span>
             </motion.div>
           </motion.div>
 
@@ -165,31 +167,35 @@ export default function Hero() {
               }}
             >
               {/* Soft Cyan Glow Behind */}
-              <div className="absolute -inset-10 rounded-full blur-3xl opacity-20"
-                style={{ background: "radial-gradient(circle, #5BA4C4, transparent 70%)" }} />
+              <div className="absolute -inset-10 rounded-full blur-3xl opacity-25"
+                style={{ background: "radial-gradient(circle, rgba(56,189,248,0.3), transparent 70%)" }} />
               
+              {/* Iris shimmer ring */}
+              <div className="absolute -inset-1 rounded-full opacity-30"
+                style={{ background: "conic-gradient(from 0deg, #38bdf8, #818cf8, #38bdf8)", filter: "blur(8px)" }} />
+
               {/* Main Image Container */}
               <div className="relative w-full h-full rounded-full overflow-hidden"
-                style={{ border: "2px solid rgba(91,164,196,0.3)", boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}>
+                style={{ border: "2px solid rgba(56,189,248,0.35)", boxShadow: "0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(129,140,248,0.1)" }}>
                 <Image 
                   src="/1748943023056.jpeg" 
                   alt="Abdelrhaman Wael" 
                   fill 
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   priority 
                 />
               </div>
 
               {/* Status Badge */}
               <motion.div
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-5 py-2.5 rounded-full shadow-2xl z-10"
-                style={{ background: "#06141B", border: "1px solid rgba(255,255,255,0.1)", whiteSpace: "nowrap" }}
+                className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-5 py-2.5 rounded-full shadow-2xl z-10"
+                style={{ background: "rgba(2,4,8,0.95)", border: "1px solid rgba(56,189,248,0.2)", whiteSpace: "nowrap", backdropFilter: "blur(20px)" }}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-                <span className="text-sm font-bold tracking-wide" style={{ color: "#F8FAFC" }}>Available for hire</span>
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e", boxShadow: "0 0 10px #22c55e" }} />
+                <span className="text-sm font-bold tracking-wide" style={{ color: "#e8eef4" }}>Available for hire</span>
               </motion.div>
             </div>
           </motion.div>

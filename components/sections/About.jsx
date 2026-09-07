@@ -22,10 +22,12 @@ const info = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#11212D" }}>
+    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#080f18" }}>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 right-0 w-64 h-64 rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, #253745, transparent 70%)" }} />
+        <div className="absolute top-1/3 right-0 w-80 h-80 rounded-full opacity-8"
+          style={{ background: "radial-gradient(circle, rgba(129,140,248,0.15), transparent 70%)" }} />
+        <div className="absolute bottom-0 left-1/4 w-64 h-64 rounded-full opacity-6"
+          style={{ background: "radial-gradient(circle, rgba(56,189,248,0.1), transparent 70%)" }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
@@ -39,26 +41,30 @@ export default function About() {
             viewport={{ once: true }}
           >
             <div className="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto">
-              {/* Soft Cyan Glow Behind */}
+              {/* Soft Glow Behind */}
               <div className="absolute -inset-10 rounded-full blur-3xl opacity-20"
-                style={{ background: "radial-gradient(circle, #5BA4C4, transparent 70%)" }} />
+                style={{ background: "radial-gradient(circle, rgba(56,189,248,0.25), transparent 70%)" }} />
               
+              {/* Iris shimmer ring */}
+              <div className="absolute -inset-1 rounded-full opacity-20"
+                style={{ background: "conic-gradient(from 0deg, #38bdf8, #818cf8, #38bdf8)", filter: "blur(8px)" }} />
+
               {/* Main Image Container */}
               <div className="relative w-full h-full rounded-full overflow-hidden"
-                style={{ border: "2px solid rgba(91,164,196,0.3)", boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}>
+                style={{ border: "2px solid rgba(56,189,248,0.3)", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
                 <Image 
                   src="/1748943023056.jpeg" 
                   alt="Abdelrhaman Wael" 
                   fill 
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-500" 
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700" 
                 />
               </div>
 
               {/* Status Badge */}
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-5 py-2.5 rounded-full shadow-2xl z-10"
-                style={{ background: "#06141B", border: "1px solid rgba(255,255,255,0.1)", whiteSpace: "nowrap" }}>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-                <span className="text-sm font-bold tracking-wide" style={{ color: "#F8FAFC" }}>Available for hire</span>
+                style={{ background: "rgba(2,4,8,0.95)", border: "1px solid rgba(56,189,248,0.2)", whiteSpace: "nowrap", backdropFilter: "blur(20px)" }}>
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e", boxShadow: "0 0 10px #22c55e" }} />
+                <span className="text-sm font-bold tracking-wide" style={{ color: "#e8eef4" }}>Available for hire</span>
               </div>
             </div>
           </motion.div>
@@ -71,19 +77,19 @@ export default function About() {
             viewport={{ once: true }}
           >
             <span className="section-tag mb-5 inline-flex">About Me</span>
-            <h2 className="font-black mb-6 leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#CCD0CF" }}>
+            <h2 className="font-black mb-6 leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#e8eef4", letterSpacing: "-0.02em" }}>
               Passionate about building{" "}
               <span className="gradient-text">intelligent systems</span>
             </h2>
 
-            <p className="text-lg leading-relaxed mb-4" style={{ color: "#9BA8AB" }}>
-              I&apos;m <strong style={{ color: "#CCD0CF" }}>Abdelrhaman Wael</strong>, a passionate Cloud & AI Engineer
+            <p className="text-lg leading-relaxed mb-4" style={{ color: "#8a9bb0" }}>
+              I&apos;m <strong style={{ color: "#e8eef4" }}>Abdelrhaman Wael</strong>, a passionate Cloud & AI Engineer
               pursuing my Computer Science degree at Egyptian Chinese University.
             </p>
-            <p className="text-lg leading-relaxed mb-4" style={{ color: "#9BA8AB" }}>
-              As an <strong style={{ color: "#CCD0CF" }}>independent freelance developer</strong>, I deliver complete end-to-end solutions. Whether you need a robust web application with React, Next.js, and .NET MVC, a sophisticated AI Agent, a custom RAG system, or automated data extraction workflows, I have the expertise to turn your vision into a production-ready reality.
+            <p className="text-lg leading-relaxed mb-4" style={{ color: "#8a9bb0" }}>
+              As an <strong style={{ color: "#e8eef4" }}>independent freelance developer</strong>, I deliver complete end-to-end solutions. Whether you need a robust web application with React, Next.js, and .NET MVC, a sophisticated AI Agent, a custom RAG system, or automated data extraction workflows, I have the expertise to turn your vision into a production-ready reality.
             </p>
-            <p className="text-lg leading-relaxed mb-8" style={{ color: "#9BA8AB" }}>
+            <p className="text-lg leading-relaxed mb-8" style={{ color: "#8a9bb0" }}>
               When I&apos;m not coding, I explore generative AI models, experiment with new cloud infrastructures, and share knowledge with the developer community.
             </p>
 
@@ -91,8 +97,8 @@ export default function About() {
             <div className="flex flex-wrap gap-4 mb-8">
               {info.map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2 text-sm"
-                  style={{ color: "#9BA8AB" }}>
-                  <Icon size={18} style={{ color: "#5BA4C4" }} weight="duotone" />
+                  style={{ color: "#8a9bb0" }}>
+                  <Icon size={18} style={{ color: "#38bdf8" }} weight="duotone" />
                   {text}
                 </div>
               ))}
@@ -102,9 +108,9 @@ export default function About() {
               href="https://docs.google.com/document/d/1GHfujMGx0bQU9-wT63GutRliuKTTjNnL/edit"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white"
-              style={{ background: "#5BA4C4", color: "#06141B" }}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(91,164,196,0.4)" }}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold"
+              style={{ background: "linear-gradient(135deg, #38bdf8, #0ea5e9)", color: "#020408", boxShadow: "0 4px 20px rgba(56,189,248,0.3)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(56,189,248,0.45)" }}
               whileTap={{ scale: 0.95 }}
             >
               <Download size={20} />
@@ -123,15 +129,15 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
               className="p-6 rounded-2xl card-hover"
-              style={{ background: "rgba(17,33,45,0.8)", border: "1px solid rgba(74,92,106,0.3)" }}
-              whileHover={{ borderColor: `${color}40` }}
+              style={{ background: "rgba(8,15,24,0.9)", border: "1px solid rgba(56,189,248,0.1)" }}
+              whileHover={{ borderColor: `${color}50` }}
             >
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 skill-icon-wrap"
-                style={{ background: `${color}18`, color }}>
+                style={{ background: `${color}15`, color }}>
                 <Icon size={24} weight="duotone" />
               </div>
-              <h3 className="font-bold mb-2" style={{ color: "#CCD0CF" }}>{title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#9BA8AB" }}>{desc}</p>
+              <h3 className="font-bold mb-2" style={{ color: "#e8eef4" }}>{title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#8a9bb0" }}>{desc}</p>
             </motion.div>
           ))}
         </div>
