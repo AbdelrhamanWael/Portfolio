@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { EnvelopeSimple, LinkedinLogo, GithubLogo, PaperPlaneTilt, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { supabase } from "@/lib/supabase";
 
 const contactLinks = [
   {
@@ -46,14 +45,16 @@ export default function Contact() {
     setSending(true);
     setStatus({ type: "", message: "" });
     try {
-      const { error } = await supabase.from("messages").insert([
-        {
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-        },
-      ]);
-      if (error) throw error;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message.");
+      }
 
       setStatus({
         type: "success",
@@ -61,10 +62,10 @@ export default function Contact() {
       });
       setForm({ name: "", email: "", message: "" });
     } catch (err) {
-      console.error("Failed to send message via Supabase:", err);
+      console.error("Failed to send message:", err);
       setStatus({
         type: "error",
-        message: "Failed to send. Please email me directly at abdelrhamanwael8@gmail.com",
+        message: err.message || "Failed to send. Please email me directly at abdelrhamanwael8@gmail.com",
       });
     } finally {
       setSending(false);
