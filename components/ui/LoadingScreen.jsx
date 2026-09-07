@@ -3,6 +3,17 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BrandLogo from "@/components/ui/BrandLogo";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ⏱️ CONTROL LOADING DURATION HERE
+// Change LOADER_DURATION_MS to make it faster or slower:
+//   500  = ultra fast (0.5 seconds)
+//   1000 = snappy & smooth (1.0 second)  <-- DEFAULT
+//   1500 = cinematic (1.5 seconds)
+//   2000 = slow (2.0 seconds)
+// ─────────────────────────────────────────────────────────────────────────────
+const LOADER_DURATION_MS = 1000;
+const FADE_OUT_DURATION_S = 0.45;
+
 const loadingPhrases = [
   "Initializing portfolio...",
   "Crafting experiences...",
@@ -17,8 +28,13 @@ export default function LoadingScreen({ onComplete }) {
 
   useEffect(() => {
     let p = 0;
+    const tickInterval = 30; // update frequency in ms
+    const totalTicks = Math.max(1, Math.round(LOADER_DURATION_MS / tickInterval));
+    const step = 100 / totalTicks;
+
     const id = setInterval(() => {
-      p += Math.random() * 25 + 15;
+      // Add subtle organic variation while strictly hitting the target duration
+      p += step + (Math.random() * 2 - 1);
       if (p >= 100) {
         p = 100;
         clearInterval(id);
@@ -26,12 +42,12 @@ export default function LoadingScreen({ onComplete }) {
         setTimeout(() => {
           setShow(false);
           onComplete?.();
-        }, 180);
+        }, 150);
       } else {
-        setProgress(p);
+        setProgress(Math.max(0, p));
         setPhraseIdx(Math.floor((p / 100) * (loadingPhrases.length - 1)));
       }
-    }, 35);
+    }, tickInterval);
 
     return () => clearInterval(id);
   }, [onComplete]);
@@ -48,7 +64,7 @@ export default function LoadingScreen({ onComplete }) {
           animate={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+            transition: { duration: FADE_OUT_DURATION_S, ease: [0.22, 1, 0.36, 1] },
           }}
         >
           {/* Ambient orbs */}
