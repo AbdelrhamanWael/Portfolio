@@ -11,7 +11,7 @@ import BrandLogo from "@/components/ui/BrandLogo";
 //   1500 = cinematic (1.5 seconds)
 //   2000 = slow (2.0 seconds)
 // ─────────────────────────────────────────────────────────────────────────────
-const LOADER_DURATION_MS = 1000;
+const LOADER_DURATION_MS = 2000;
 const FADE_OUT_DURATION_S = 0.45;
 
 const loadingPhrases = [
