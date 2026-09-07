@@ -105,7 +105,7 @@ export default function About() {
             </div>
 
             <motion.a
-              href="https://docs.google.com/document/d/1GHfujMGx0bQU9-wT63GutRliuKTTjNnL/edit"
+              href="https://docs.google.com/document/d/1rtaG3UW7r6Bi5tmDHNUTP1aIQNrzCNam/edit?usp=sharing&ouid=106804560327604470135&rtpof=true&sd=true"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold"

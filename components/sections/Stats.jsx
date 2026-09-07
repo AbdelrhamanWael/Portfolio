@@ -5,8 +5,8 @@ import { Code, Briefcase, Trophy, Star } from "@phosphor-icons/react";
 
 const stats = [
   { icon: Code,     value: 10,  suffix: "+", label: "Technologies",      color: "#38bdf8" },
-  { icon: Briefcase,value: 6,   suffix: "+", label: "Projects Built",     color: "#818cf8" },
-  { icon: Trophy,   value: 2,   suffix: "+", label: "Certifications",     color: "#34d399" },
+  { icon: Briefcase,value: 20,   suffix: "+", label: "Projects Built",     color: "#818cf8" },
+  { icon: Trophy,   value: 5,   suffix: "+", label: "Certifications",     color: "#34d399" },
   { icon: Star,     value: 100, suffix: "%", label: "Client Satisfaction", color: "#f59e0b" },
 ];
 
