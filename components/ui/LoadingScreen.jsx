@@ -11,58 +11,44 @@ const loadingPhrases = [
 ];
 
 export default function LoadingScreen({ onComplete }) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [progress, setProgress] = useState(0);
   const [phraseIdx, setPhraseIdx] = useState(0);
 
   useEffect(() => {
-    // If already loaded in this session, do not show at all
-    try {
-      if (sessionStorage.getItem("portfolio_loaded")) {
-        onComplete?.();
-        return;
-      }
-    } catch {}
-
-    const showTimer = setTimeout(() => {
-      setShow(true);
-    }, 0);
-
     let p = 0;
     const id = setInterval(() => {
       p += Math.random() * 25 + 15;
       if (p >= 100) {
         p = 100;
         clearInterval(id);
-        try {
-          sessionStorage.setItem("portfolio_loaded", "1");
-        } catch {}
+        setProgress(100);
         setTimeout(() => {
           setShow(false);
           onComplete?.();
-        }, 120);
+        }, 180);
+      } else {
+        setProgress(p);
+        setPhraseIdx(Math.floor((p / 100) * (loadingPhrases.length - 1)));
       }
-      setProgress(p);
-      setPhraseIdx(Math.floor((p / 100) * (loadingPhrases.length - 1)));
-    }, 30);
+    }, 35);
 
-    return () => {
-      clearTimeout(showTimer);
-      clearInterval(id);
-    };
+    return () => clearInterval(id);
   }, [onComplete]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {show && (
         <motion.div
+          key="loading-screen"
           aria-hidden="true"
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden pointer-events-none"
           style={{ background: "#020408" }}
           initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.3, ease: "easeOut" },
+            transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
           }}
         >
           {/* Ambient orbs */}
