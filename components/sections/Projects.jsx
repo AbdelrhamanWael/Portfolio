@@ -97,7 +97,7 @@ export default function Projects() {
                       alt={project.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 25vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0"
@@ -110,6 +110,7 @@ export default function Projects() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`View live demo of ${project.title}`}
                           className="w-9 h-9 rounded-lg flex items-center justify-center text-white"
                           style={{ background: "rgba(56,189,248,0.85)", backdropFilter: "blur(8px)" }}
                           whileHover={{ scale: 1.1 }}
@@ -123,6 +124,7 @@ export default function Projects() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`View GitHub repository for ${project.title}`}
                           className="w-9 h-9 rounded-lg flex items-center justify-center text-white"
                           style={{ background: "rgba(14,28,43,0.85)", backdropFilter: "blur(8px)", border: "1px solid rgba(56,189,248,0.2)" }}
                           whileHover={{ scale: 1.1 }}

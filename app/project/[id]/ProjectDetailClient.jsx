@@ -79,6 +79,7 @@ export default function ProjectDetailClient({ project }) {
                 src={project.image} 
                 alt={project.title} 
                 fill 
+                sizes="(max-width: 768px) 100vw, 1200px"
                 className="object-cover object-top transition-transform duration-1000 group-hover:scale-105" 
                 priority
               />
@@ -261,7 +262,9 @@ export default function ProjectDetailClient({ project }) {
             exit={{ opacity: 0 }}
             onClick={() => setActiveImage(null)}
           >
-            <button className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-full flex items-center justify-center z-50 bg-white/10 text-white hover:bg-white/20 transition-colors"
+            <button
+              aria-label="Close image"
+              className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-full flex items-center justify-center z-50 bg-white/10 text-white hover:bg-white/20 transition-colors"
               onClick={() => setActiveImage(null)}>
               <X size={24} />
             </button>

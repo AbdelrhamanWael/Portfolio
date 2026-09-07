@@ -54,8 +54,9 @@ export default function About() {
                 style={{ border: "2px solid rgba(56,189,248,0.3)", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
                 <Image 
                   src="/1748943023056.jpeg" 
-                  alt="Abdelrhaman Wael" 
+                  alt="Abdelrhaman Wael - Full Stack & AI Engineer" 
                   fill 
+                  sizes="(max-width: 640px) 288px, 320px"
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700" 
                 />
               </div>

@@ -17,11 +17,9 @@ const categoryColors = {
 
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");
-  const [mounted, setMounted] = useState(false);
   const [projectList, setProjectList] = useState(projects);
 
   useEffect(() => {
-    setMounted(true);
     fetchProjectsFromSupabase().then((data) => {
       if (data && data.length > 0) setProjectList(data);
     });
@@ -29,7 +27,6 @@ export default function ProjectsPage() {
 
   const filtered = active === "All" ? projectList : projectList.filter((p) => p.category === active);
 
-  if (!mounted) return null;
 
   return (
     <>
@@ -142,6 +139,7 @@ export default function ProjectsPage() {
                       <div className="project-card-overlay absolute inset-0 flex items-end justify-end p-4 gap-3">
                         {project.liveUrl && (
                           <motion.a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                            aria-label={`View live demo of ${project.title}`}
                             className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
                             style={{ background: "rgba(56,189,248,0.85)", backdropFilter: "blur(8px)" }}
                             whileHover={{ scale: 1.15 }}
@@ -151,6 +149,7 @@ export default function ProjectsPage() {
                         )}
                         {project.githubUrl && (
                           <motion.a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                            aria-label={`View GitHub repository for ${project.title}`}
                             className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
                             style={{ background: "rgba(14,28,43,0.85)", backdropFilter: "blur(8px)", border: "1px solid rgba(56,189,248,0.25)" }}
                             whileHover={{ scale: 1.15 }}

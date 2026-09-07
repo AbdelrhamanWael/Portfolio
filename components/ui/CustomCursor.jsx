@@ -1,16 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 
+function subscribeTouch(callback) {
+  if (typeof window === "undefined") return () => {};
+  const mql = window.matchMedia("(pointer: coarse)");
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+
+function getTouchSnapshot() {
+  if (typeof window === "undefined") return true;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+function getServerSnapshot() {
+  return true;
+}
+
 export default function CustomCursor() {
+  const isTouch = useSyncExternalStore(subscribeTouch, getTouchSnapshot, getServerSnapshot);
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isPointer, setIsPointer] = useState(false);
-  const [isTouch, setIsTouch] = useState(true);
 
   useEffect(() => {
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-    setIsTouch(isTouchDevice);
-    if (isTouchDevice) return;
+    if (isTouch) return;
 
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -34,7 +48,7 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", handleMouseEnter);
       document.removeEventListener("mouseout", handleMouseLeave);
     };
-  }, []);
+  }, [isTouch]);
 
   if (isTouch) return null;
 

@@ -21,9 +21,11 @@ export default function Hero() {
       return () => clearTimeout(t);
     }
     if (deleting && displayed === "") {
-      setDeleting(false);
-      setRoleIdx((p) => (p + 1) % roles.length);
-      return;
+      const t = setTimeout(() => {
+        setDeleting(false);
+        setRoleIdx((p) => (p + 1) % roles.length);
+      }, 50);
+      return () => clearTimeout(t);
     }
     const speed = deleting ? 45 : 95;
     const t = setTimeout(() => {
@@ -179,8 +181,9 @@ export default function Hero() {
                 style={{ border: "2px solid rgba(56,189,248,0.35)", boxShadow: "0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(129,140,248,0.1)" }}>
                 <Image 
                   src="/1748943023056.jpeg" 
-                  alt="Abdelrhaman Wael" 
+                  alt="Abdelrhaman Wael - Freelance Software & AI Engineer" 
                   fill 
+                  sizes="(max-width: 640px) 288px, 320px"
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   priority 
                 />

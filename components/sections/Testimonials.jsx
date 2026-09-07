@@ -68,6 +68,9 @@ export default function Testimonials() {
           {testimonialsData.map((t, i) => (
             <motion.article
               key={t.id}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setSelected(t.image); }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -80,8 +83,9 @@ export default function Testimonials() {
               <div className="relative h-72 bg-gray-900 flex items-center justify-center">
                 <Image
                   src={t.image}
-                  alt={t.platform}
+                  alt={`${t.platform} review ${t.id}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-contain p-4 group-hover:scale-[1.03] transition-transform duration-500"
                 />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
@@ -113,6 +117,7 @@ export default function Testimonials() {
             onClick={() => setSelected(null)}
           >
             <button
+              aria-label="Close modal"
               className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center z-50"
               style={{ background: "rgba(17,33,45,0.9)", border: "1px solid rgba(74,92,106,0.5)", color: "#9BA8AB" }}
               onClick={() => setSelected(null)}

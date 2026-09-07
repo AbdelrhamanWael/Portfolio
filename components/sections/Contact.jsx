@@ -179,7 +179,7 @@ export default function Contact() {
               <div className="space-y-6">
                 {/* Name */}
                 <div className="relative">
-                  <label className="block text-sm font-bold mb-2 tracking-wide text-[#9BA8AB]">Your Name</label>
+                  <label htmlFor="contact-name" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Your Name</label>
                   <input
                     id="contact-name" type="text" name="name" required
                     value={form.name} onChange={handleChange}
@@ -198,7 +198,7 @@ export default function Contact() {
                 
                 {/* Email */}
                 <div className="relative">
-                  <label className="block text-sm font-bold mb-2 tracking-wide text-[#9BA8AB]">Your Email</label>
+                  <label htmlFor="contact-email" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Your Email</label>
                   <input
                     id="contact-email" type="email" name="email" required
                     value={form.email} onChange={handleChange}
@@ -217,7 +217,7 @@ export default function Contact() {
                 
                 {/* Message */}
                 <div className="relative">
-                  <label className="block text-sm font-bold mb-2 tracking-wide text-[#9BA8AB]">Message</label>
+                  <label htmlFor="contact-message" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Message</label>
                   <textarea
                     id="contact-message" name="message" required rows={5}
                     value={form.message} onChange={handleChange}

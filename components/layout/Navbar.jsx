@@ -61,6 +61,7 @@ export default function Navbar() {
         <motion.a
           href="#home"
           onClick={(e) => scrollTo(e, "#home")}
+          aria-label="Abdelrhaman Wael - Home"
           className="text-xl font-bold relative group flex items-center"
           whileHover={{ scale: 1.05 }}
         >
@@ -117,7 +118,9 @@ export default function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           whileHover={{ color: "#fff" }}
           whileTap={{ scale: 0.9 }}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-menu"
         >
           {mobileOpen ? <X size={24} /> : <List size={24} />}
         </motion.button>
@@ -127,6 +130,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-nav-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

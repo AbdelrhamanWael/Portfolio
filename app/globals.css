@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 /* ─── Design Tokens (ui-ux-pro-max: Liquid Glass / Premium Dark) ────────── */
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Depth-layered dark palette */
   --color-depth:       #020408;
@@ -63,7 +62,7 @@ html {
 body {
   background-color: #080f18;
   color: #e8eef4;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   cursor: none;
   -webkit-font-smoothing: antialiased;
@@ -80,30 +79,21 @@ body {
   color: #fff;
 }
 
-/* ─── Gradient Text ──────────────────────────────────────────────────────── */
+/* ─── Gradient Text (Optimized & GPU-friendly) ───────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #e8eef4 0%, #38bdf8 40%, #818cf8 80%, #7dd3fc 100%);
-  background-size: 300% 300%;
+  background: linear-gradient(135deg, #e8eef4 0%, #38bdf8 50%, #818cf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 6s ease infinite;
 }
 
 .gradient-text-iris {
   background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 5s ease infinite;
 }
 
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 /* ─── Glassmorphism ──────────────────────────────────────────────────────── */
 .glass {
