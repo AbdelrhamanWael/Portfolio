@@ -76,9 +76,10 @@ export default function Projects() {
                   }}
                   whileHover={{
                     borderColor: colors.border,
-                    boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 40px ${colors.glow}`,
-                    y: -8,
-                    transition: { duration: 0.25 },
+                    boxShadow: `0 24px 64px rgba(0,0,0,0.6), 0 0 60px ${colors.glow}`,
+                    y: -10,
+                    scale: 1.02,
+                    transition: { duration: 0.3, ease: "easeOut" },
                   }}
                 >
                   {/* Image */}
