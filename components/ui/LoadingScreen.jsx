@@ -11,25 +11,22 @@ const loadingPhrases = [
 ];
 
 export default function LoadingScreen({ onComplete }) {
+  const [show, setShow] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [done, setDone] = useState(() => {
-    if (typeof window !== "undefined") {
-      try {
-        return Boolean(sessionStorage.getItem("portfolio_loaded"));
-      } catch {
-        return false;
-      }
-    }
-    return false;
-  });
   const [phraseIdx, setPhraseIdx] = useState(0);
 
   useEffect(() => {
-    // If already loaded in this session, skip immediately
-    if (done) {
-      onComplete?.();
-      return;
-    }
+    // If already loaded in this session, do not show at all
+    try {
+      if (sessionStorage.getItem("portfolio_loaded")) {
+        onComplete?.();
+        return;
+      }
+    } catch {}
+
+    const showTimer = setTimeout(() => {
+      setShow(true);
+    }, 0);
 
     let p = 0;
     const id = setInterval(() => {
@@ -37,11 +34,11 @@ export default function LoadingScreen({ onComplete }) {
       if (p >= 100) {
         p = 100;
         clearInterval(id);
+        try {
+          sessionStorage.setItem("portfolio_loaded", "1");
+        } catch {}
         setTimeout(() => {
-          setDone(true);
-          try {
-            sessionStorage.setItem("portfolio_loaded", "1");
-          } catch {}
+          setShow(false);
           onComplete?.();
         }, 120);
       }
@@ -49,12 +46,15 @@ export default function LoadingScreen({ onComplete }) {
       setPhraseIdx(Math.floor((p / 100) * (loadingPhrases.length - 1)));
     }, 30);
 
-    return () => clearInterval(id);
-  }, [done, onComplete]);
+    return () => {
+      clearTimeout(showTimer);
+      clearInterval(id);
+    };
+  }, [onComplete]);
 
   return (
     <AnimatePresence>
-      {!done && (
+      {show && (
         <motion.div
           aria-hidden="true"
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden pointer-events-none"
@@ -62,7 +62,7 @@ export default function LoadingScreen({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.35, ease: "easeOut" },
+            transition: { duration: 0.3, ease: "easeOut" },
           }}
         >
           {/* Ambient orbs */}
