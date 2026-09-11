@@ -19,7 +19,9 @@ export default function ProjectDetailClient({ project }) {
 
   const desc = Array.isArray(project.longDescription)
     ? project.longDescription
-    : [project.longDescription];
+    : typeof project.longDescription === "string"
+      ? project.longDescription.split(/\n\n+/).filter(Boolean)
+      : [project.longDescription];
 
   const galleryImages = project.gallery?.filter(img => img !== project.image) || [];
 
