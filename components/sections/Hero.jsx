@@ -149,6 +149,106 @@ export default function Hero() {
               ))}
               <span className="text-sm ml-2" style={{ color: "#1e3448" }}>— Connect with me</span>
             </motion.div>
+
+            {/* ── Freelance Platforms ────────────────────────────────────── */}
+            <motion.div variants={itemVars} className="mt-6">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#4A5C6A" }}>
+                Available on
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                {[
+                  {
+                    label: "Upwork",
+                    href: "https://www.upwork.com/freelancers/~018c6bd3657b16a0e7",
+                    color: "#14a800",
+                    glow: "rgba(20,168,0,0.25)",
+                    borderActive: "rgba(20,168,0,0.5)",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                        <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3.001-2.439-5.449-5.439-5.449z"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    label: "Fiverr",
+                    href: "https://www.fiverr.com/s/qbDyk6X",
+                    color: "#1dbf73",
+                    glow: "rgba(29,191,115,0.25)",
+                    borderActive: "rgba(29,191,115,0.5)",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                        <path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.009c-.266 0-.376.199-.376.421v4.579h-1.595v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.18v1.421h-1.18c-.266 0-.376.2-.376.421v.089h1.556v1.425zm-4.283 4.745c0 1.134-.596 1.8-1.8 1.8h-1.181V16.01h1.181c.266 0 .376-.199.376-.421v-.047h-1.557v-1.421h1.557v-.089c0-1.133-.596-1.8-1.8-1.8H12.5v6.42h-1.594v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.801c1.204 0 1.8.667 1.8 1.8v.133h.77v1.422h-.77v3.579c0 1.133-.596 1.8-1.8 1.8h-1.181v-1.421h1.181c.266 0 .376-.2.376-.421v-.379zm-6.826-4.745H9.89c-.266 0-.376.199-.376.421v4.579H7.919v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.18v1.421h-1.18c-.266 0-.376.2-.376.421v.089h1.557v1.425zm-4.283.978v3.601H5.022v-3.601c0-.222-.11-.421-.376-.421H3.465v-1.421h1.181c1.204 0 1.8.667 1.8 1.8v.042h.014zM3.465 9.44a.995.995 0 1 1 0 1.99.995.995 0 0 1 0-1.99z"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    label: "خمسات",
+                    href: "https://khamsat.com/user/abdelrhamanwael01016",
+                    color: "#f97316",
+                    glow: "rgba(249,115,22,0.25)",
+                    borderActive: "rgba(249,115,22,0.5)",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm.75 14.5h-1.5v-5.25l-2.25 1.5-.75-1.125 3-2H12.75v6.875z"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    label: "مستقل",
+                    href: "https://mostaql.com/u/abdelrhamanwael",
+                    color: "#6366f1",
+                    glow: "rgba(99,102,241,0.25)",
+                    borderActive: "rgba(99,102,241,0.5)",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      </svg>
+                    ),
+                  },
+                ].map(({ label, href, color, glow, borderActive, icon }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Hire me on ${label}`}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold relative overflow-hidden"
+                    style={{
+                      background: "rgba(14,28,43,0.85)",
+                      border: `1px solid rgba(255,255,255,0.08)`,
+                      color: "#8a9bb0",
+                      backdropFilter: "blur(12px)",
+                    }}
+                    whileHover={{
+                      scale: 1.06,
+                      color: color,
+                      borderColor: borderActive,
+                      boxShadow: `0 0 20px ${glow}, 0 4px 16px rgba(0,0,0,0.4)`,
+                      transition: { duration: 0.2 },
+                    }}
+                    whileTap={{ scale: 0.94 }}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9, duration: 0.5 }}
+                  >
+                    {/* Shimmer sweep on hover */}
+                    <motion.span
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: `linear-gradient(105deg, transparent 40%, ${color}18 50%, transparent 60%)`,
+                        backgroundSize: "200% 100%",
+                      }}
+                      whileHover={{
+                        backgroundPosition: ["200% 0", "-200% 0"],
+                        transition: { duration: 0.6, ease: "linear" },
+                      }}
+                    />
+                    <span style={{ color: "inherit", flexShrink: 0 }}>{icon}</span>
+                    <span>{label}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* RIGHT: 3D Avatar Card */}
