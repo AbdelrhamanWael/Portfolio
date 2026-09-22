@@ -163,9 +163,10 @@ export default function Hero() {
                     color: "#14a800",
                     glow: "rgba(20,168,0,0.25)",
                     borderActive: "rgba(20,168,0,0.5)",
+                    // Real Upwork logo — exact path from SimpleIcons
                     icon: (
                       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                        <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3.001-2.439-5.449-5.439-5.449z"/>
+                        <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06a2.703 2.703 0 0 1 0 5.405zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112a2.547 2.547 0 0 1-5.094 0V3.492H0v7.112a5.282 5.282 0 0 0 10.564 0v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109a5.45 5.45 0 0 0 0-10.899z"/>
                       </svg>
                     ),
                   },
@@ -175,34 +176,47 @@ export default function Hero() {
                     color: "#1dbf73",
                     glow: "rgba(29,191,115,0.25)",
                     borderActive: "rgba(29,191,115,0.5)",
+                    // Real Fiverr logo — exact path from SimpleIcons
                     icon: (
                       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                        <path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.009c-.266 0-.376.199-.376.421v4.579h-1.595v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.18v1.421h-1.18c-.266 0-.376.2-.376.421v.089h1.556v1.425zm-4.283 4.745c0 1.134-.596 1.8-1.8 1.8h-1.181V16.01h1.181c.266 0 .376-.199.376-.421v-.047h-1.557v-1.421h1.557v-.089c0-1.133-.596-1.8-1.8-1.8H12.5v6.42h-1.594v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.801c1.204 0 1.8.667 1.8 1.8v.133h.77v1.422h-.77v3.579c0 1.133-.596 1.8-1.8 1.8h-1.181v-1.421h1.181c.266 0 .376-.2.376-.421v-.379zm-6.826-4.745H9.89c-.266 0-.376.199-.376.421v4.579H7.919v-5.001h-.77v-1.422h.77v-.133c0-1.133.596-1.8 1.8-1.8h1.18v1.421h-1.18c-.266 0-.376.2-.376.421v.089h1.557v1.425zm-4.283.978v3.601H5.022v-3.601c0-.222-.11-.421-.376-.421H3.465v-1.421h1.181c1.204 0 1.8.667 1.8 1.8v.042h.014zM3.465 9.44a.995.995 0 1 1 0 1.99.995.995 0 0 1 0-1.99z"/>
+                        <path d="M16.25 14.729h.56c.272 0 .413-.176.413-.414V9.23h1.524v5.085c0 .945-.608 1.554-1.538 1.554h-.96zm1.54-7.08a.95.95 0 1 0-.002 1.899.95.95 0 0 0 .002-1.9zM4.39 14.729H2.877V9.23H1.354V7.707h1.522v-.45c0-.93.61-1.537 1.539-1.537h.997v1.523h-.997c-.273 0-.413.177-.413.414v.05h1.41V9.23H4.39zm4.627 0H7.493V9.23H5.97V7.707h1.523v-.45c0-.93.608-1.537 1.537-1.537h.998v1.523h-.998c-.272 0-.413.177-.413.414v.05H9.9V9.23H8.607l.41 5.499zm2.627 0v-5.5h1.413V7.706h-1.413v-.45c0-.237.14-.414.413-.414h.998V5.32h-.998c-.93 0-1.538.608-1.538 1.538v.45H9.005V9.23h1.523v5.5zm4.218 0h-1.522V7.707h1.522z"/>
                       </svg>
                     ),
                   },
                   {
                     label: "خمسات",
                     href: "https://khamsat.com/user/abdelrhamanwael01016",
-                    color: "#f97316",
-                    glow: "rgba(249,115,22,0.25)",
-                    borderActive: "rgba(249,115,22,0.5)",
+                    color: "#ff6b35",
+                    glow: "rgba(255,107,53,0.25)",
+                    borderActive: "rgba(255,107,53,0.5)",
+                    // Khamsat real favicon via Google favicon service
                     icon: (
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm.75 14.5h-1.5v-5.25l-2.25 1.5-.75-1.125 3-2H12.75v6.875z"/>
-                      </svg>
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src="https://www.google.com/s2/favicons?domain=khamsat.com&sz=32"
+                        alt="Khamsat"
+                        width={18}
+                        height={18}
+                        style={{ borderRadius: "3px", display: "block" }}
+                      />
                     ),
                   },
                   {
                     label: "مستقل",
                     href: "https://mostaql.com/u/abdelrhamanwael",
-                    color: "#6366f1",
-                    glow: "rgba(99,102,241,0.25)",
-                    borderActive: "rgba(99,102,241,0.5)",
+                    color: "#4f9cf9",
+                    glow: "rgba(79,156,249,0.25)",
+                    borderActive: "rgba(79,156,249,0.5)",
+                    // Mostaql real favicon via Google favicon service
                     icon: (
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                      </svg>
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src="https://www.google.com/s2/favicons?domain=mostaql.com&sz=32"
+                        alt="Mostaql"
+                        width={18}
+                        height={18}
+                        style={{ borderRadius: "3px", display: "block" }}
+                      />
                     ),
                   },
                 ].map(({ label, href, color, glow, borderActive, icon }) => (
@@ -243,7 +257,7 @@ export default function Hero() {
                         transition: { duration: 0.6, ease: "linear" },
                       }}
                     />
-                    <span style={{ color: "inherit", flexShrink: 0 }}>{icon}</span>
+                    <span style={{ flexShrink: 0, display: "flex", alignItems: "center" }}>{icon}</span>
                     <span>{label}</span>
                   </motion.a>
                 ))}
