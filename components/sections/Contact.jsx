@@ -1,310 +1,297 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { EnvelopeSimple, LinkedinLogo, GithubLogo, PaperPlaneTilt, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-
-const contactLinks = [
-  {
-    icon: EnvelopeSimple,
-    label: "Email",
-    value: "abdelrhamanwael8@gmail.com",
-    href: "mailto:abdelrhamanwael8@gmail.com",
-    color: "#5BA4C4",
-  },
-  {
-    icon: LinkedinLogo,
-    label: "LinkedIn",
-    value: "Connect with me",
-    href: "https://www.linkedin.com/in/abdelrhaman-wael-mohammed-790171366",
-    color: "#A855F7",
-  },
-  {
-    icon: GithubLogo,
-    label: "GitHub",
-    value: "View my code",
-    href: "https://github.com/AbdelrhamanWael",
-    color: "#CCD0CF",
-  },
-];
+import { useState } from "react";
+import {
+  EnvelopeSimple,
+  LinkedinLogo,
+  GithubLogo,
+  PaperPlaneTilt,
+  CheckCircle,
+  WarningCircle,
+  Clock,
+  ShieldCheck,
+  ArrowUpRight,
+  Terminal,
+} from "@phosphor-icons/react";
 
 export default function Contact() {
-  const formRef = useRef(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    scope: "AI Agents & RAG Systems",
+    message: "",
+  });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [sending, setSending] = useState(false);
-  const [focusedInput, setFocusedInput] = useState(null);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      setStatus({ type: "error", message: "Please fill in all required fields." });
+      setStatus({
+        type: "error",
+        message: "Required fields missing. Please complete all parameters.",
+      });
       return;
     }
+
     setSending(true);
     setStatus({ type: "", message: "" });
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.scope, // pass selected scope
+          message: `[System Scope: ${form.scope}]\n\n${form.message}`,
+        }),
       });
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to send message.");
+        throw new Error(data.error || "Transmission failed.");
       }
 
       setStatus({
         type: "success",
-        message: "Message sent! I'll get back to you within 24 hours.",
+        message: "Inquiry successfully dispatched. I will review and respond within 4 hours.",
       });
-      setForm({ name: "", email: "", phone: "", message: "" });
+      setForm({ name: "", email: "", scope: "AI Agents & RAG Systems", message: "" });
     } catch (err) {
-      console.error("Failed to send message:", err);
       setStatus({
         type: "error",
-        message: err.message || "Failed to send. Please email me directly at abdelrhamanwael8@gmail.com",
+        message: err.message || "Failed to transmit message. Please contact via direct email.",
       });
     } finally {
       setSending(false);
     }
   };
 
-  const inputClass = "w-full px-5 py-4 rounded-xl text-sm font-medium transition-all duration-300 focus:outline-none";
-
   return (
-    <section id="contact" className="py-32 relative overflow-hidden"
-      style={{ background: "#050505" }}>
-      
-      {/* Background Orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full blur-[120px]"
-          style={{ background: "radial-gradient(circle, #5BA4C4, transparent 70%)" }} 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.3, 1], opacity: [0.02, 0.08, 0.02] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, #7C3AED, transparent 70%)" }} 
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-6"
-            style={{ background: "rgba(91,164,196,0.15)", color: "#5BA4C4", border: "1px solid rgba(91,164,196,0.3)" }}>
-            <EnvelopeSimple size={18} weight="bold" />
-            Get in Touch
-          </span>
-          <h2 className="font-black" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "#F8FAFC", lineHeight: 1.1 }}>
-            Let&apos;s <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5BA4C4] to-[#7C3AED]">Work Together</span>
-          </h2>
-          <p className="mt-6 max-w-xl mx-auto text-lg" style={{ color: "#9BA8AB" }}>
-            Have a project in mind? Let&apos;s create something amazing together. I&apos;m always open to discussing new opportunities.
+    <section id="channel" className="py-24 bg-[#090A0C] border-b border-[#232733]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Movement Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 mb-14 border-b border-[#232733]">
+          <div>
+            <div className="flex items-center gap-2 font-mono text-xs text-[#F59E0B] mb-2">
+              <span>{"// 04. DIRECT CHANNEL"}</span>
+              <span className="text-[#525866]">/</span>
+              <span className="text-[#8A909E]">CONTRACTS & CONSULTATION</span>
+            </div>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#F4F5F7] tracking-tight">
+              Initiate Project Brief
+            </h2>
+          </div>
+          <p className="font-mono text-xs text-[#8A909E] max-w-md">
+            Direct communication channel for freelance engineering contracts, architectural reviews, and production systems development.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
-          
-          {/* Left: Contact info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="lg:col-span-5 space-y-6"
-          >
-            {contactLinks.map(({ icon: Icon, label, value, href, color }, i) => (
-              <motion.a
-                key={label}
-                href={href}
-                target={label !== "Email" ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-5 p-6 rounded-2xl group transition-all duration-300"
-                style={{ 
-                  background: "rgba(17,33,45,0.4)", 
-                  backdropFilter: "blur(20px)",
-                  border: "1px solid rgba(255,255,255,0.05)" 
-                }}
-                whileHover={{ 
-                  borderColor: `${color}60`, 
-                  background: "rgba(17,33,45,0.8)",
-                  boxShadow: `0 20px 40px ${color}15, 0 0 20px ${color}10 inset`, 
-                  x: 8 
-                }}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Left Column: Direct Coordinates & Telemetry (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Response Time SLA Card */}
+            <div className="studio-surface rounded-lg p-6 border border-[#232733] corner-marked space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-[#232733]">
+                <div className="flex items-center gap-2 text-[#F4F5F7] font-semibold">
+                  <Clock size={16} className="text-[#F59E0B]" />
+                  <span>RESPONSE GUARANTEE</span>
+                </div>
+                <span className="text-[#10B981] font-bold">&lt; 4 HOURS</span>
+              </div>
+              <p className="text-[#8A909E] font-sans text-xs leading-relaxed">
+                Direct monitoring of client briefs across UTC+2. Detailed proposal estimates, architecture scope breakdowns, and technical timelines provided promptly.
+              </p>
+              <div className="flex items-center gap-2 pt-2 text-[#525866] text-[11px]">
+                <ShieldCheck size={14} className="text-[#F59E0B]" />
+                <span>CONFIDENTIALITY ENSURED // NDA READY</span>
+              </div>
+            </div>
+
+            {/* Direct Communication Channels */}
+            <div className="space-y-2.5 font-mono text-xs">
+              <span className="text-[#525866] text-[11px] uppercase tracking-wider block mb-1">
+                VERIFIED DIRECT CHANNELS
+              </span>
+
+              <a
+                href="mailto:abdelrhamanwael8@gmail.com"
+                className="studio-surface p-4 rounded border border-[#232733] hover:border-[#F59E0B]/50 transition-colors flex items-center justify-between text-[#F4F5F7] group"
               >
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-                  style={{ background: `${color}20`, color }}>
-                  <Icon size={28} weight="duotone" />
+                <div className="flex items-center gap-3">
+                  <EnvelopeSimple size={16} className="text-[#F59E0B]" />
+                  <div>
+                    <div className="text-[10px] text-[#525866]">PRIMARY EMAIL</div>
+                    <div className="font-semibold text-xs group-hover:text-[#F59E0B] transition-colors">
+                      abdelrhamanwael8@gmail.com
+                    </div>
+                  </div>
                 </div>
+                <ArrowUpRight size={13} className="text-[#525866] group-hover:text-[#F59E0B]" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/abdelrhaman-wael-mohammed-790171366"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="studio-surface p-4 rounded border border-[#232733] hover:border-[#0A66C2]/60 transition-colors flex items-center justify-between text-[#F4F5F7] group"
+              >
+                <div className="flex items-center gap-3">
+                  <LinkedinLogo size={16} className="text-[#0A66C2]" />
+                  <div>
+                    <div className="text-[10px] text-[#525866]">LINKEDIN NETWORK</div>
+                    <div className="font-semibold text-xs group-hover:text-[#F4F5F7] transition-colors">
+                      Abdelrhaman Wael Mohammed
+                    </div>
+                  </div>
+                </div>
+                <ArrowUpRight size={13} className="text-[#525866]" />
+              </a>
+
+              <a
+                href="https://github.com/AbdelrhamanWael"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="studio-surface p-4 rounded border border-[#232733] hover:border-white/40 transition-colors flex items-center justify-between text-[#F4F5F7] group"
+              >
+                <div className="flex items-center gap-3">
+                  <GithubLogo size={16} className="text-white" />
+                  <div>
+                    <div className="text-[10px] text-[#525866]">GITHUB PROFILE</div>
+                    <div className="font-semibold text-xs group-hover:text-[#F4F5F7] transition-colors">
+                      @AbdelrhamanWael
+                    </div>
+                  </div>
+                </div>
+                <ArrowUpRight size={13} className="text-[#525866]" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Terminal-Grade Inquiry Form (7 cols) */}
+          <div className="lg:col-span-7">
+            <div className="studio-surface rounded-lg p-6 sm:p-8 border border-[#232733]">
+              <div className="flex items-center gap-2 pb-4 mb-6 border-b border-[#232733] font-mono text-xs">
+                <Terminal size={14} className="text-[#F59E0B]" />
+                <span className="text-[#F4F5F7] font-semibold">PROJECT SPECIFICATION FORM</span>
+                <span className="text-[#525866]">|</span>
+                <span className="text-[#8A909E]">TRANSMISSION PROTOCOL</span>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-[#8A909E] mb-1.5 uppercase text-[10px] tracking-wider">
+                      Client / Organization Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Alex Morgan / Acme Corp"
+                      className="w-full px-3.5 py-2.5 rounded bg-[#090A0C] border border-[#232733] focus:border-[#F59E0B] focus:outline-none text-[#F4F5F7] placeholder-[#525866] transition-colors"
+                    />
+                  </div>
+
+                  {/* Work Email */}
+                  <div>
+                    <label className="block text-[#8A909E] mb-1.5 uppercase text-[10px] tracking-wider">
+                      Work Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="alex@acme.com"
+                      className="w-full px-3.5 py-2.5 rounded bg-[#090A0C] border border-[#232733] focus:border-[#F59E0B] focus:outline-none text-[#F4F5F7] placeholder-[#525866] transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* System Scope */}
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#4A5C6A" }}>{label}</p>
-                  <p className="font-semibold text-lg" style={{ color: "#CCD0CF" }}>{value}</p>
-                </div>
-              </motion.a>
-            ))}
-          </motion.div>
-
-          {/* Right: Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="lg:col-span-7"
-          >
-            <form ref={formRef} onSubmit={handleSubmit} className="p-8 sm:p-10 rounded-3xl"
-              style={{ 
-                background: "rgba(17,33,45,0.3)", 
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.05)",
-                boxShadow: "0 30px 60px rgba(0,0,0,0.3)"
-              }}>
-              
-              <div className="space-y-6">
-                {/* Name */}
-                <div className="relative">
-                  <label htmlFor="contact-name" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Your Name</label>
-                  <input
-                    id="contact-name" type="text" name="name" required
-                    value={form.name} onChange={handleChange}
-                    placeholder="John Doe"
-                    className={inputClass}
-                    style={{
-                      background: "rgba(5,5,5,0.5)",
-                      border: focusedInput === "name" ? "1px solid rgba(91,164,196,0.8)" : "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: focusedInput === "name" ? "0 0 20px rgba(91,164,196,0.2)" : "none",
-                      color: "#F8FAFC"
-                    }}
-                    onFocus={() => setFocusedInput("name")}
-                    onBlur={() => setFocusedInput(null)}
-                  />
-                </div>
-                
-                {/* Email */}
-                <div className="relative">
-                  <label htmlFor="contact-email" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Your Email</label>
-                  <input
-                    id="contact-email" type="email" name="email" required
-                    value={form.email} onChange={handleChange}
-                    placeholder="john@example.com"
-                    className={inputClass}
-                    style={{
-                      background: "rgba(5,5,5,0.5)",
-                      border: focusedInput === "email" ? "1px solid rgba(91,164,196,0.8)" : "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: focusedInput === "email" ? "0 0 20px rgba(91,164,196,0.2)" : "none",
-                      color: "#F8FAFC"
-                    }}
-                    onFocus={() => setFocusedInput("email")}
-                    onBlur={() => setFocusedInput(null)}
-                  />
-                </div>
-
-                {/* Phone */}
-                <div className="relative">
-                  <label htmlFor="contact-phone" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">
-                    Phone Number <span className="text-xs font-normal text-[#8a9bb0]">(Optional)</span>
+                  <label className="block text-[#8A909E] mb-1.5 uppercase text-[10px] tracking-wider">
+                    Project Architecture Scope
                   </label>
-                  <input
-                    id="contact-phone" type="tel" name="phone"
-                    value={form.phone} onChange={handleChange}
-                    placeholder="+20 100 000 0000"
-                    className={inputClass}
-                    style={{
-                      background: "rgba(5,5,5,0.5)",
-                      border: focusedInput === "phone" ? "1px solid rgba(91,164,196,0.8)" : "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: focusedInput === "phone" ? "0 0 20px rgba(91,164,196,0.2)" : "none",
-                      color: "#F8FAFC"
-                    }}
-                    onFocus={() => setFocusedInput("phone")}
-                    onBlur={() => setFocusedInput(null)}
-                  />
+                  <select
+                    name="scope"
+                    value={form.scope}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded bg-[#090A0C] border border-[#232733] focus:border-[#F59E0B] focus:outline-none text-[#F4F5F7] transition-colors"
+                  >
+                    <option value="AI Agents & RAG Systems">AI Agents & RAG Systems</option>
+                    <option value="Full-Stack Web Platform (Next.js / .NET)">
+                      Full-Stack Web Platform (Next.js / .NET)
+                    </option>
+                    <option value="FastAPI Backend & AI Model Integration">
+                      FastAPI Backend & AI Model Integration
+                    </option>
+                    <option value="Custom Headless CMS & Enterprise Architecture">
+                      Custom Headless CMS & Enterprise Architecture
+                    </option>
+                    <option value="Other Technical Advisory / Consultation">
+                      Other Technical Advisory / Consultation
+                    </option>
+                  </select>
                 </div>
-                
-                {/* Message */}
-                <div className="relative">
-                  <label htmlFor="contact-message" className="block text-sm font-bold mb-2 tracking-wide text-[#CCD0CF]">Message</label>
+
+                {/* Project Details */}
+                <div>
+                  <label className="block text-[#8A909E] mb-1.5 uppercase text-[10px] tracking-wider">
+                    Technical Requirements & Timeline *
+                  </label>
                   <textarea
-                    id="contact-message" name="message" required rows={5}
-                    value={form.message} onChange={handleChange}
-                    placeholder="Tell me about your project..."
-                    className={inputClass + " resize-none"}
-                    style={{
-                      background: "rgba(5,5,5,0.5)",
-                      border: focusedInput === "message" ? "1px solid rgba(124,58,237,0.8)" : "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: focusedInput === "message" ? "0 0 20px rgba(124,58,237,0.2)" : "none",
-                      color: "#F8FAFC"
-                    }}
-                    onFocus={() => setFocusedInput("message")}
-                    onBlur={() => setFocusedInput(null)}
+                    name="message"
+                    required
+                    rows={5}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Briefly describe the business problem, target deliverables, desired stack preferences, and target deployment schedule..."
+                    className="w-full px-3.5 py-2.5 rounded bg-[#090A0C] border border-[#232733] focus:border-[#F59E0B] focus:outline-none text-[#F4F5F7] placeholder-[#525866] transition-colors leading-relaxed"
                   />
                 </div>
 
-                {/* Status Message */}
+                {/* Status Feedback */}
                 {status.message && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="flex items-center gap-3 p-4 rounded-xl text-sm font-bold"
-                    style={{
-                      background: status.type === "success" ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
-                      border: `1px solid ${status.type === "success" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)"}`,
-                      color: status.type === "success" ? "#4ADE80" : "#F87171",
-                    }}
+                  <div
+                    className={`p-3.5 rounded border text-xs flex items-center gap-2.5 ${
+                      status.type === "success"
+                        ? "bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]"
+                        : "bg-red-500/10 border-red-500/30 text-red-400"
+                    }`}
                   >
-                    {status.type === "success"
-                      ? <CheckCircle size={20} weight="bold" />
-                      : <WarningCircle size={20} weight="bold" />}
-                    {status.message}
-                  </motion.div>
+                    {status.type === "success" ? (
+                      <CheckCircle size={16} />
+                    ) : (
+                      <WarningCircle size={16} />
+                    )}
+                    <span>{status.message}</span>
+                  </div>
                 )}
 
-                {/* Submit Button */}
-                <motion.button
+                {/* Submit Trigger */}
+                <button
                   type="submit"
-                  id="contact-submit"
                   disabled={sending}
-                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-bold text-white transition-all duration-300 disabled:opacity-50 mt-4 relative overflow-hidden group"
-                  style={{ 
-                    background: "linear-gradient(135deg, #5BA4C4, #7C3AED)",
-                    boxShadow: "0 10px 20px rgba(91,164,196,0.3)"
-                  }}
-                  whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(124,58,237,0.4)" }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full btn-signal py-3.5 text-xs font-mono flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                  <span className="relative z-10 flex items-center gap-2">
-                    {sending ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <PaperPlaneTilt size={22} weight="bold" />
-                        Send Message
-                      </>
-                    )}
+                  <PaperPlaneTilt size={14} weight="bold" />
+                  <span>
+                    {sending ? "TRANSMITTING SPECIFICATION..." : "TRANSMIT INQUIRY BRIEF"}
                   </span>
-                </motion.button>
-              </div>
-            </form>
-          </motion.div>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>

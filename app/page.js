@@ -1,32 +1,26 @@
 "use client";
-import LoadingScreen from "@/components/ui/LoadingScreen";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Stats from "@/components/sections/Stats";
-import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
-import Experience from "@/components/sections/Experience";
-import Education from "@/components/sections/Education";
-import Testimonials from "@/components/sections/Testimonials";
+import ArchitectureTrackRecord from "@/components/sections/ArchitectureTrackRecord";
 import Contact from "@/components/sections/Contact";
-
 
 export default function Home() {
   return (
     <>
-      <LoadingScreen />
       <Navbar />
-      <main>
+      <main className="min-h-screen">
+        {/* Movement 01: Systems Workbench & Interactive Console */}
         <Hero />
-        <About />
-        <Stats />
-        <Skills />
+
+        {/* Movement 02: Engineering Dossier (Flagship Case Study & Systems Ledger) */}
         <Projects />
-        <Experience />
-        <Education />
-        <Testimonials />
+
+        {/* Movement 03: Architecture & Proven Track Record (Topology, Milestones & Verified Proof) */}
+        <ArchitectureTrackRecord />
+
+        {/* Movement 04: Direct Channel (Brief Desk & Telemetry) */}
         <Contact />
       </main>
       <Footer />
