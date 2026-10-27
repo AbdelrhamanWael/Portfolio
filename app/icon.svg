@@ -1,15 +1,42 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Outer decorative ring -->
-  <circle cx="256" cy="256" r="240" fill="none" stroke="rgba(91,164,196,0.2)" stroke-width="12"/>
-  
-  <!-- Main background -->
-  <circle cx="256" cy="256" r="220" fill="#06141B" stroke="rgba(91,164,196,0.6)" stroke-width="16"/>
-  
-  <!-- Inner dashed ring -->
-  <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(91,164,196,0.5)" stroke-width="14" stroke-dasharray="30,20"/>
-  
-  <!-- AW Text -->
-  <text x="246" y="335" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'" font-weight="900" font-size="220" letter-spacing="-20" text-anchor="middle">
-    <tspan fill="#F8FAFC">A</tspan><tspan fill="#5BA4C4" dx="-15">W</tspan>
-  </text>
+<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="#090A0C"/>
+  <rect x="1" y="1" width="98" height="98" rx="21" stroke="#232733" stroke-width="2"/>
+
+  <!-- Outer Technical Reticle Ring -->
+  <circle cx="50" cy="50" r="42" stroke="#232733" stroke-width="1.2"/>
+  <circle cx="50" cy="50" r="38" stroke="#F59E0B" stroke-width="0.8" stroke-dasharray="2 6" opacity="0.6"/>
+  <circle cx="50" cy="50" r="34" stroke="#232733" stroke-width="1"/>
+
+  <!-- Cardinal Tick Marks -->
+  <line x1="50" y1="5" x2="50" y2="12" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="50" y1="88" x2="50" y2="95" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="5" y1="50" x2="12" y2="50" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="88" y1="50" x2="95" y2="50" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Diagonal Micro Ticks -->
+  <line x1="22" y1="22" x2="26" y2="26" stroke="#232733" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="78" y1="22" x2="74" y2="26" stroke="#232733" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="22" y1="78" x2="26" y2="74" stroke="#232733" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="78" y1="78" x2="74" y2="74" stroke="#232733" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Center Axis Line -->
+  <line x1="50" y1="24" x2="50" y2="76" stroke="#232733" stroke-width="0.8" stroke-dasharray="3 3"/>
+
+  <!-- Letter A (Left - Stark Crisp White) -->
+  <line x1="33" y1="72" x2="42" y2="30" stroke="#F4F5F7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="42" y1="30" x2="49.5" y2="52" stroke="#F4F5F7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="35.5" y1="62" x2="47" y2="62" stroke="#F4F5F7" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="42" cy="29" r="2.2" fill="#F4F5F7"/>
+
+  <!-- Letter W (Right - Cadmium Amber Signal) -->
+  <line x1="51.5" y1="30" x2="55.5" y2="72" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="55.5" y1="72" x2="60.5" y2="46" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="60.5" y1="46" x2="65" y2="72" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="65" y1="72" x2="69" y2="30" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="51.5" cy="29" r="2.2" fill="#F59E0B"/>
+  <circle cx="69" cy="29" r="2.2" fill="#F59E0B"/>
+
+  <!-- Center Origin Reticle Dot -->
+  <circle cx="50" cy="50" r="1.8" fill="#F59E0B"/>
 </svg>
