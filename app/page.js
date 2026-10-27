@@ -1,4 +1,5 @@
 "use client";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
@@ -9,6 +10,7 @@ import Contact from "@/components/sections/Contact";
 export default function Home() {
   return (
     <>
+      <LoadingScreen />
       <Navbar />
       <main className="min-h-screen">
         {/* Movement 01: Systems Workbench & Interactive Console */}

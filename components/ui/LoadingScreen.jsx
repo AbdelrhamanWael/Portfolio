@@ -1,176 +1,185 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import BrandLogo from "@/components/ui/BrandLogo";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ⏱️ CONTROL LOADING DURATION HERE
-// Change LOADER_DURATION_MS to make it faster or slower:
-//   500  = ultra fast (0.5 seconds)
-//   1000 = snappy & smooth (1.0 second)  <-- DEFAULT
-//   1500 = cinematic (1.5 seconds)
-//   2000 = slow (2.0 seconds)
-// ─────────────────────────────────────────────────────────────────────────────
-const LOADER_DURATION_MS = 2000;
-const FADE_OUT_DURATION_S = 0.45;
-
-const loadingPhrases = [
-  "Initializing portfolio...",
-  "Crafting experiences...",
-  "Loading projects...",
-  "Almost there...",
+const diagnosticLogs = [
+  "BOOT // INITIALIZING AI AGENT RUNTIME",
+  "INDEX // MOUNTING VECTOR RAG PIPELINE",
+  "BACKEND // FASTAPI & .NET GATEWAY READY",
+  "SYS // 200 OK — INTERFACE MOUNTED",
 ];
 
 export default function LoadingScreen({ onComplete }) {
   const [show, setShow] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [logIndex, setLogIndex] = useState(0);
 
   useEffect(() => {
-    let p = 0;
-    const tickInterval = 30; // update frequency in ms
-    const totalTicks = Math.max(1, Math.round(LOADER_DURATION_MS / tickInterval));
+    // Session Intelligence: Check if already booted in this session
+    const hasBooted = typeof window !== "undefined" && sessionStorage.getItem("aw_boot_complete");
+    if (hasBooted) {
+      const t = setTimeout(() => {
+        setShow(false);
+        onComplete?.();
+      }, 0);
+      return () => clearTimeout(t);
+    }
+
+    const duration = 850; // Total duration in ms
+    const interval = 25; // Update rate in ms
+    const totalTicks = duration / interval;
     const step = 100 / totalTicks;
 
-    const id = setInterval(() => {
-      // Add subtle organic variation while strictly hitting the target duration
-      p += step + (Math.random() * 2 - 1);
-      if (p >= 100) {
-        p = 100;
-        clearInterval(id);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= 100) {
+        current = 100;
+        clearInterval(timer);
         setProgress(100);
+        setLogIndex(diagnosticLogs.length - 1);
+
+        try {
+          sessionStorage.setItem("aw_boot_complete", "true");
+        } catch {}
+
         setTimeout(() => {
           setShow(false);
           onComplete?.();
-        }, 150);
+        }, 120);
       } else {
-        setProgress(Math.max(0, p));
-        setPhraseIdx(Math.floor((p / 100) * (loadingPhrases.length - 1)));
+        setProgress(Math.floor(current));
+        const idx = Math.min(
+          diagnosticLogs.length - 1,
+          Math.floor((current / 100) * diagnosticLogs.length)
+        );
+        setLogIndex(idx);
       }
-    }, tickInterval);
+    }, interval);
 
-    return () => clearInterval(id);
+    return () => clearInterval(timer);
   }, [onComplete]);
 
   return (
     <AnimatePresence mode="wait">
       {show && (
         <motion.div
-          key="loading-screen"
-          aria-hidden="true"
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden pointer-events-none"
-          style={{ background: "#020408" }}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          exit={{
-            opacity: 0,
-            transition: { duration: FADE_OUT_DURATION_S, ease: [0.22, 1, 0.36, 1] },
-          }}
+          key="architectural-loader"
+          initial={{ y: 0 }}
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[99999] bg-[#090A0C] border-b border-[#F59E0B]/50 flex flex-col items-center justify-center p-6 select-none"
         >
-          {/* Ambient orbs */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="orb1 absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 65%)" }} />
-            <div className="orb2 absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(129,140,248,0.1) 0%, transparent 65%)" }} />
-            {/* Grid */}
-            <div className="absolute inset-0 grid-pattern opacity-40" />
-          </div>
+          {/* Subtle blueprint grid overlay */}
+          <div className="absolute inset-0 blueprint-grid opacity-40 pointer-events-none" />
 
-          {/* Center content */}
-          <div className="relative z-10 flex flex-col items-center gap-6">
-            {/* Logo animation */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="mb-1"
-            >
-              <BrandLogo />
-            </motion.div>
-
-            {/* Name */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
-              className="flex items-end gap-0"
-            >
-              <span
-                className="loading-letter font-black"
-                style={{
-                  fontSize: "clamp(2.2rem, 7vw, 4rem)",
-                  background: "linear-gradient(135deg, #e8eef4 0%, #38bdf8 60%, #818cf8 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
+          <div className="relative z-10 flex flex-col items-center max-w-sm w-full text-center space-y-6">
+            {/* Dynamic Vector Reticle AW Emblem */}
+            <div className="relative w-24 h-24 rounded-xl bg-[#0E1015] border border-[#232733] flex items-center justify-center p-2 shadow-2xl corner-marked">
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-full h-full"
               >
-                Abdelrhaman
-              </span>
-            </motion.div>
-
-            {/* Role */}
-            <motion.p
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-              className="text-xs font-semibold tracking-[0.3em] uppercase"
-              style={{ color: "#38bdf8" }}
-            >
-              Freelance Software Engineer
-            </motion.p>
-
-            {/* Progress section */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="w-72 flex flex-col gap-3"
-            >
-              {/* Progress bar track */}
-              <div className="relative w-full h-[2px] rounded-full overflow-hidden"
-                style={{ background: "rgba(56,189,248,0.1)" }}>
-                {/* Glow trail (Composited via scaleX) */}
-                <div
-                  className="absolute top-0 left-0 h-full w-full rounded-full"
-                  style={{
-                    background: "linear-gradient(90deg, #38bdf8, #818cf8)",
-                    transform: `scaleX(${Math.min(progress, 100) / 100})`,
-                    transformOrigin: "left",
-                    transition: "transform 0.1s ease-out",
-                    boxShadow: "0 0 12px rgba(56,189,248,0.8)",
-                  }}
+                {/* Outer Reticle Rings */}
+                <circle cx="50" cy="50" r="42" stroke="#232733" strokeWidth="1.2" />
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r="38"
+                  stroke="#F59E0B"
+                  strokeWidth="0.8"
+                  strokeDasharray="2 6"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                 />
-                {/* Leading dot (Composited via translateX) */}
-                <div
-                  className="absolute top-1/2 w-2.5 h-2.5 rounded-full"
-                  style={{
-                    left: 0,
-                    transform: `translate(${Math.min(progress, 100) * 2.8}px, -50%)`,
-                    background: "#38bdf8",
-                    boxShadow: "0 0 8px #38bdf8",
-                    transition: "transform 0.1s ease-out",
-                  }}
+                <circle cx="50" cy="50" r="34" stroke="#232733" strokeWidth="1" />
+
+                {/* Cardinal Tick Marks */}
+                <line x1="50" y1="5" x2="50" y2="12" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="50" y1="88" x2="50" y2="95" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="5" y1="50" x2="12" y2="50" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="88" y1="50" x2="95" y2="50" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+
+                {/* Center Axis Line */}
+                <line x1="50" y1="24" x2="50" y2="76" stroke="#232733" strokeWidth="0.8" strokeDasharray="3 3" />
+
+                {/* Letter A (Left - Drawn with dynamic pathLength) */}
+                <motion.path
+                  d="M 33 72 L 42 30 L 49.5 52"
+                  stroke="#F4F5F7"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                 />
+                <motion.line
+                  x1="35.5"
+                  y1="62"
+                  x2="47"
+                  y2="62"
+                  stroke="#F4F5F7"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                />
+                <circle cx="42" cy="29" r="2.4" fill="#F4F5F7" />
+
+                {/* Letter W (Right - Drawn with dynamic pathLength) */}
+                <motion.path
+                  d="M 51.5 30 L 55.5 72 L 60.5 46 L 65 72 L 69 30"
+                  stroke="#F59E0B"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.7, delay: 0.1, ease: "easeInOut" }}
+                />
+                <circle cx="51.5" cy="29" r="2.4" fill="#F59E0B" />
+                <circle cx="69" cy="29" r="2.4" fill="#F59E0B" />
+
+                {/* Center Reticle Origin Dot */}
+                <circle cx="50" cy="50" r="1.8" fill="#F59E0B" />
+              </svg>
+            </div>
+
+            {/* Wordmark */}
+            <div className="space-y-1">
+              <div className="font-display font-bold text-lg text-[#F4F5F7] tracking-tight">
+                Abdelrhaman Wael
+              </div>
+              <div className="font-mono text-xs text-[#8A909E] tracking-wider uppercase">
+                AI Systems & Full-Stack Engineer
+              </div>
+            </div>
+
+            {/* Precision Hairline Progress Bar & Percentage */}
+            <div className="w-full space-y-2">
+              <div className="flex items-center justify-between font-mono text-xs text-[#8A909E]">
+                <span className="text-[#F59E0B] font-semibold">{diagnosticLogs[logIndex]}</span>
+                <span className="tabular-data text-[#F4F5F7]">{progress}%</span>
               </div>
 
-              {/* Stats row */}
-              <div className="flex justify-between items-center">
-                <span
-                  className="text-xs font-mono"
-                  style={{ color: "#8a9bb0" }}
-                >
-                  {loadingPhrases[phraseIdx]}
-                </span>
-                <span className="text-xs font-mono font-bold tabular-nums"
-                  style={{ color: "#38bdf8" }}>
-                  {Math.min(Math.round(progress), 100)}%
-                </span>
+              <div className="w-full h-1 bg-[#14171E] rounded-full overflow-hidden border border-[#232733]">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-[#F59E0B] to-[#FF7A00]"
+                  style={{ width: `${progress}%` }}
+                  transition={{ ease: "linear" }}
+                />
               </div>
-            </motion.div>
+            </div>
+
+            {/* System Status Footnote */}
+            <div className="font-mono text-[10px] text-[#525866] pt-1 flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span>CAIRO (UTC+2) // ME-CENTRAL-1 READY</span>
+            </div>
           </div>
         </motion.div>
       )}
