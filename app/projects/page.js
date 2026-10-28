@@ -38,7 +38,16 @@ const categoryAccents = {
 };
 
 export default function ProjectsPage() {
-  const [active, setActive] = useState("All");
+  const [active, setActive] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get("category");
+      if (catParam && (filters.includes(catParam) || catParam === "ALL")) {
+        return catParam === "ALL" ? "All" : catParam;
+      }
+    }
+    return "All";
+  });
   const [projectList, setProjectList] = useState(projects);
 
   useEffect(() => {

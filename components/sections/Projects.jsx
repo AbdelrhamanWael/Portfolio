@@ -6,40 +6,49 @@ import {
   ArrowUpRight,
   GithubLogo,
   Globe,
-  Cpu,
-  ShieldCheck,
-  Lightning,
   Lock,
   CaretRight,
   X,
-  Sliders,
   Eye,
   CheckCircle,
+  Sparkle,
 } from "@phosphor-icons/react";
 import { projects } from "@/lib/data/projects";
 
 const flagshipProject = projects[0]; // Dar Emaar
+
+// The 4 Curated Category Champions to show under "ALL" on the homepage
+const championIds = [
+  "converso-ai-lms",       // Full Stack: AI Companion LMS SaaS with Vapi AI & Stripe
+  "medichat-ai",           // AI & Agents: Medical RAG Chatbot with Gemini & LangChain
+  "techmaster-ticketing",  // Backend Systems: Enterprise SaaS with CQRS & Clean Architecture
+  "rag-chatbot-dashboard", // Frontend UI: Customer Support RAG MLOps Monitoring Dashboard
+];
 
 const categoryAccents = {
   "AI & Agents": {
     badge: "text-[#10B981] bg-[#10B981]/10 border-[#10B981]/30",
     dot: "bg-[#10B981]",
     glow: "hover:border-[#10B981]/50",
+    tag: "TOP AI SYSTEM",
   },
   "Backend Systems": {
     badge: "text-[#38BDF8] bg-[#38BDF8]/10 border-[#38BDF8]/30",
     dot: "bg-[#38BDF8]",
     glow: "hover:border-[#38BDF8]/50",
+    tag: "TOP BACKEND API",
   },
   "Full Stack": {
     badge: "text-[#F59E0B] bg-[#F59E0B]/10 border-[#F59E0B]/30",
     dot: "bg-[#F59E0B]",
     glow: "hover:border-[#F59E0B]/50",
+    tag: "TOP FULL STACK SAAS",
   },
   "Frontend UI": {
     badge: "text-[#A78BFA] bg-[#A78BFA]/10 border-[#A78BFA]/30",
     dot: "bg-[#A78BFA]",
     glow: "hover:border-[#A78BFA]/50",
+    tag: "TOP FRONTEND MLOPS",
   },
 };
 
@@ -52,9 +61,13 @@ export default function Projects() {
 
   const secondaryProjects = projects.slice(1);
 
-  const filteredProjects =
+  // When 'ALL', show strictly the 4 Curated Category Champions
+  // When a specific category is clicked, show that category's projects
+  const displayedProjects =
     filterCategory === "ALL"
-      ? secondaryProjects
+      ? championIds
+          .map((id) => secondaryProjects.find((p) => p.id === id))
+          .filter(Boolean)
       : secondaryProjects.filter((p) => p.category === filterCategory);
 
   const categories = ["ALL", "AI & Agents", "Backend Systems", "Full Stack", "Frontend UI"];
@@ -68,7 +81,7 @@ export default function Projects() {
             <div className="flex items-center gap-2 font-mono text-xs text-[#F59E0B] mb-2">
               <span>{"// 02. ENGINEERING DOSSIER"}</span>
               <span className="text-[#525866]">/</span>
-              <span className="text-[#8A909E]">CASE STUDIES & ARCHITECTURAL BENTO</span>
+              <span className="text-[#8A909E]">CASE STUDIES & CURATED CHAMPIONS</span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#F4F5F7] tracking-tight">
               Production Systems & Case Studies
@@ -76,13 +89,13 @@ export default function Projects() {
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <p className="font-mono text-xs text-[#8A909E] max-w-md">
-              Architected and shipped for commercial clients and enterprise environments. Review flagship case study or inspect individual system blueprints.
+              Architected and shipped for commercial clients. Review flagship case study or inspect the curated category champions below.
             </p>
             <Link
               href="/projects"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#14171E] border border-[#232733] hover:border-[#F59E0B]/50 font-mono text-xs text-[#F4F5F7] whitespace-nowrap transition-colors"
             >
-              <span>VIEW ALL ({projects.length})</span>
+              <span>COMPLETE ARCHIVE ({projects.length})</span>
               <ArrowUpRight size={13} className="text-[#F59E0B]" />
             </Link>
           </div>
@@ -288,24 +301,36 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* ─── ARCHITECTURAL BENTO GRID ──────────────────────────────────── */}
+        {/* ─── CURATED CATEGORY CHAMPIONS BENTO GRID ─────────────────────── */}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
-              <span className="font-mono text-xs text-[#F59E0B] uppercase tracking-wider block font-semibold">
-                SYSTEMS SHOWCASE & BENTO ARCHIVE
-              </span>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-mono text-xs text-[#F59E0B] uppercase tracking-wider font-semibold">
+                  {filterCategory === "ALL"
+                    ? "CURATED CATEGORY CHAMPIONS"
+                    : `${filterCategory.toUpperCase()} SYSTEMS`}
+                </span>
+                <span className="text-[#525866] font-mono text-xs">/</span>
+                <span className="font-mono text-xs text-[#8A909E]">
+                  {filterCategory === "ALL"
+                    ? "TOP 4 PRODUCTION PICKS"
+                    : `${displayedProjects.length} AVAILABLE`}
+                </span>
+              </div>
               <h3 className="font-display font-bold text-xl sm:text-2xl text-[#F4F5F7]">
-                Autonomous Agents, Backend APIs & Production Systems
+                {filterCategory === "ALL"
+                  ? "Top Champions: AI, Backend, Full Stack & Frontend"
+                  : `${filterCategory} Repositories & Implementations`}
               </h3>
             </div>
 
             {/* Category Filter Pills */}
             <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
               {categories.map((cat) => {
-                const count =
+                const countBadge =
                   cat === "ALL"
-                    ? secondaryProjects.length
+                    ? "4 TOP"
                     : secondaryProjects.filter((p) => p.category === cat).length;
                 return (
                   <button
@@ -319,13 +344,13 @@ export default function Projects() {
                   >
                     <span>{cat}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded ${
+                      className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
                         filterCategory === cat
                           ? "bg-[#090A0C]/20 text-[#090A0C]"
                           : "bg-[#14171E] text-[#525866]"
                       }`}
                     >
-                      {count}
+                      {countBadge}
                     </span>
                   </button>
                 );
@@ -333,9 +358,9 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Architectural Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((proj, idx) => {
+          {/* Curated Bento Grid (2x2 on desktop when ALL, responsive) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {displayedProjects.map((proj, idx) => {
               const catStyle = categoryAccents[proj.category] || categoryAccents["Full Stack"];
               return (
                 <div
@@ -352,7 +377,7 @@ export default function Projects() {
                           <span className="w-2 h-2 rounded-full bg-[#F59E0B]/70 inline-block" />
                           <span className="w-2 h-2 rounded-full bg-[#10B981]/70 inline-block" />
                         </div>
-                        <span className="text-[#8A909E] text-[9px] uppercase tracking-wider truncate max-w-[150px]">
+                        <span className="text-[#8A909E] text-[9px] uppercase tracking-wider truncate max-w-[180px]">
                           SYS-0{idx + 2} {"//"} {proj.category}
                         </span>
                         <div className="flex items-center gap-1">
@@ -391,19 +416,19 @@ export default function Projects() {
                             alt={proj.title}
                             fill
                             className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0E1015] via-transparent to-transparent opacity-80" />
                         </div>
                       </Link>
 
-                      {/* Category Badge overlay bottom left */}
-                      <div className="absolute bottom-3 left-3 z-10">
+                      {/* Domain Champion Tag Badge */}
+                      <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
                         <span
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-mono text-[10px] uppercase font-semibold border ${catStyle.badge}`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full ${catStyle.dot}`} />
-                          {proj.category}
+                          {filterCategory === "ALL" && catStyle.tag ? catStyle.tag : proj.category}
                         </span>
                       </div>
 
@@ -426,7 +451,7 @@ export default function Projects() {
                           <span>{proj.duration || "Production"}</span>
                         </div>
                         <Link href={`/project/${proj.id}`}>
-                          <h4 className="font-display font-bold text-base text-[#F4F5F7] group-hover:text-[#F59E0B] transition-colors leading-snug line-clamp-1">
+                          <h4 className="font-display font-bold text-base sm:text-lg text-[#F4F5F7] group-hover:text-[#F59E0B] transition-colors leading-snug line-clamp-1">
                             {proj.title}
                           </h4>
                         </Link>
@@ -438,7 +463,7 @@ export default function Projects() {
 
                       {/* Primary Innovation Highlight */}
                       {proj.features?.[0] && (
-                        <div className="p-2 rounded bg-[#090A0C] border border-[#232733] font-mono text-[11px] text-[#D1D5DB] flex items-start gap-2">
+                        <div className="p-2.5 rounded bg-[#090A0C] border border-[#232733] font-mono text-[11px] text-[#D1D5DB] flex items-start gap-2">
                           <span className="text-[#F59E0B] font-bold">▸</span>
                           <span className="line-clamp-1 text-[11px]">{proj.features[0]}</span>
                         </div>
@@ -449,7 +474,7 @@ export default function Projects() {
                   {/* Card Footer: Tech Stack & Action Links */}
                   <div className="p-5 pt-0 border-t border-[#232733]/60 mt-3 space-y-3">
                     <div className="flex flex-wrap gap-1 font-mono text-[10px] text-[#8A909E] pt-3">
-                      {proj.tech.slice(0, 4).map((t) => (
+                      {proj.tech.slice(0, 5).map((t) => (
                         <span
                           key={t}
                           className="px-2 py-0.5 rounded bg-[#14171E] border border-[#232733]"
@@ -457,9 +482,9 @@ export default function Projects() {
                           {t}
                         </span>
                       ))}
-                      {proj.tech.length > 4 && (
+                      {proj.tech.length > 5 && (
                         <span className="px-1.5 py-0.5 text-[#525866]">
-                          +{proj.tech.length - 4}
+                          +{proj.tech.length - 5}
                         </span>
                       )}
                     </div>
@@ -469,11 +494,11 @@ export default function Projects() {
                         href={`/project/${proj.id}`}
                         className="inline-flex items-center gap-1.5 font-mono text-xs text-[#F59E0B] hover:text-[#FBBF24] font-semibold transition-colors group-hover:translate-x-0.5"
                       >
-                        <span>VIEW CASE STUDY</span>
+                        <span>VIEW FULL CASE STUDY</span>
                         <ArrowUpRight size={13} weight="bold" />
                       </Link>
 
-                      <div className="flex items-center gap-2 font-mono text-[11px]">
+                      <div className="flex items-center gap-2.5 font-mono text-[11px]">
                         {proj.liveUrl && (
                           <a
                             href={proj.liveUrl}
@@ -500,6 +525,35 @@ export default function Projects() {
                 </div>
               );
             })}
+          </div>
+
+          {/* ─── MASTER ARCHIVE DISCOVERY CALLOUT ────────────────────────── */}
+          <div className="mt-12 p-6 rounded-lg studio-surface border border-[#232733] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 font-mono text-xs">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B] animate-pulse mt-1 sm:mt-0 flex-shrink-0" />
+              <div>
+                <div className="text-[#F4F5F7] font-semibold text-sm">
+                  {filterCategory === "ALL"
+                    ? `LOOKING FOR MORE SYSTEMS? (${projects.length - 5} ADDITIONAL REPOSITORIES)`
+                    : `VIEW ALL ${projects.length} PROJECTS ACROSS ALL DISCIPLINES`}
+                </div>
+                <div className="text-[#8A909E] text-[11px] font-sans mt-0.5">
+                  Browse the complete engineering archive with live Swagger endpoints, GitHub repos, and architectural case studies.
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href={
+                filterCategory === "ALL"
+                  ? "/projects"
+                  : `/projects?category=${encodeURIComponent(filterCategory)}`
+              }
+              className="btn-signal text-xs whitespace-nowrap flex items-center gap-2 py-2.5 px-4 flex-shrink-0"
+            >
+              <span>EXPLORE COMPLETE ARCHIVE ({projects.length})</span>
+              <ArrowUpRight size={14} weight="bold" />
+            </Link>
           </div>
         </div>
       </div>
