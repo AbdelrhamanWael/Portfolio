@@ -2,17 +2,39 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { GithubLogo, ArrowSquareOut, ArrowRight, ArrowLeft, Star } from "@phosphor-icons/react";
+import {
+  GithubLogo,
+  Globe,
+  ArrowUpRight,
+  ArrowLeft,
+  Sliders,
+  CheckCircle,
+} from "@phosphor-icons/react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { projects, filters, fetchProjectsFromSupabase } from "@/lib/data/projects";
 
-const categoryColors = {
-  "AI & Agents":      { bg: "rgba(34,197,94,0.1)",   text: "#22c55e", border: "rgba(34,197,94,0.25)",  glow: "rgba(34,197,94,0.15)" },
-  "Full Stack":       { bg: "rgba(245,158,11,0.1)",   text: "#f59e0b", border: "rgba(245,158,11,0.25)", glow: "rgba(245,158,11,0.15)" },
-  "Backend Systems":  { bg: "rgba(129,140,248,0.1)",  text: "#818cf8", border: "rgba(129,140,248,0.25)",glow: "rgba(129,140,248,0.15)" },
-  "Frontend UI":      { bg: "rgba(56,189,248,0.1)",   text: "#38bdf8", border: "rgba(56,189,248,0.25)", glow: "rgba(56,189,248,0.15)" },
+const categoryAccents = {
+  "AI & Agents": {
+    badge: "text-[#10B981] bg-[#10B981]/10 border-[#10B981]/30",
+    dot: "bg-[#10B981]",
+    glow: "hover:border-[#10B981]/50",
+  },
+  "Backend Systems": {
+    badge: "text-[#38BDF8] bg-[#38BDF8]/10 border-[#38BDF8]/30",
+    dot: "bg-[#38BDF8]",
+    glow: "hover:border-[#38BDF8]/50",
+  },
+  "Full Stack": {
+    badge: "text-[#F59E0B] bg-[#F59E0B]/10 border-[#F59E0B]/30",
+    dot: "bg-[#F59E0B]",
+    glow: "hover:border-[#F59E0B]/50",
+  },
+  "Frontend UI": {
+    badge: "text-[#A78BFA] bg-[#A78BFA]/10 border-[#A78BFA]/30",
+    dot: "bg-[#A78BFA]",
+    glow: "hover:border-[#A78BFA]/50",
+  },
 };
 
 export default function ProjectsPage() {
@@ -25,198 +47,231 @@ export default function ProjectsPage() {
     });
   }, []);
 
-  const filtered = active === "All" ? projectList : projectList.filter((p) => p.category === active);
-
+  const filtered =
+    active === "All"
+      ? projectList
+      : projectList.filter((p) => p.category === active);
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-32 pb-24 relative overflow-hidden" style={{ background: "#020408" }}>
-        
-        {/* Background elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] opacity-15"
-            style={{ background: "radial-gradient(ellipse at top, rgba(56,189,248,0.5), transparent 70%)" }} />
-          <div className="absolute inset-0 grid-pattern opacity-40" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          
+      <main className="min-h-screen pt-28 pb-24 bg-[#090A0C] text-[#F4F5F7]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold mb-6 transition-colors" style={{ color: "#8a9bb0" }}>
-              <ArrowLeft size={16} />
-              <span className="hover:text-white transition-colors">Back to Home</span>
+          <div className="pb-8 mb-12 border-b border-[#232733]">
+            <Link
+              href="/#dossier"
+              className="inline-flex items-center gap-2 font-mono text-xs text-[#8A909E] hover:text-[#F4F5F7] transition-colors mb-6"
+            >
+              <ArrowLeft size={14} />
+              <span>RETURN TO MAIN PORTFOLIO</span>
             </Link>
-            <h1 className="font-black mt-2" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "#e8eef4", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
-              All <span className="gradient-text">Projects</span>
-            </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg" style={{ color: "#8a9bb0" }}>
-              Browse through my complete portfolio of freelance projects, AI applications, and full-stack systems.
-            </p>
-          </motion.div>
+
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 font-mono text-xs text-[#F59E0B] mb-2">
+                  <span>{"// COMPLETE SYSTEMS ARCHIVE"}</span>
+                  <span className="text-[#525866]">/</span>
+                  <span className="text-[#8A909E]">{projectList.length} PRODUCTION REPOSITORIES</span>
+                </div>
+                <h1 className="font-display font-black text-3xl sm:text-5xl text-[#F4F5F7] tracking-tight">
+                  All Engineering Projects
+                </h1>
+              </div>
+              <p className="font-mono text-xs text-[#8A909E] max-w-md">
+                Browse through commercial freelance deliverables, AI agent architectures, backend APIs, and full-stack web platforms.
+              </p>
+            </div>
+          </div>
 
           {/* Filter tabs */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {filters.map((f) => (
-              <motion.button
-                key={f}
-                onClick={() => setActive(f)}
-                className="relative px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 shadow-sm"
-                style={{
-                  color: active === f ? "#020408" : "#8a9bb0",
-                  background: active === f ? "transparent" : "rgba(14,28,43,0.6)",
-                  border: active === f ? "1px solid transparent" : "1px solid rgba(56,189,248,0.15)",
-                }}
-                whileHover={{ scale: 1.05, borderColor: active === f ? "transparent" : "rgba(56,189,248,0.4)" }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="relative z-10">{f}</span>
-                {active === f && (
-                  <motion.div layoutId="projectsFilterActive"
-                    className="absolute inset-0 rounded-xl -z-10"
-                    style={{ 
-                      background: "linear-gradient(135deg, #38bdf8, #818cf8)",
-                      boxShadow: "0 0 20px rgba(56,189,248,0.4)"
-                    }} 
-                  />
-                )}
-              </motion.button>
-            ))}
-          </motion.div>
-
-          {/* Project grid */}
-          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((project, i) => {
-                const colors = categoryColors[project.category] || categoryColors["Frontend UI"];
-                return (
-                  <motion.article
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                    className="project-card rounded-3xl overflow-hidden group flex flex-col h-full relative"
-                    style={{ 
-                      background: "linear-gradient(135deg, rgba(14,28,43,0.8) 0%, rgba(8,15,24,0.95) 100%)",
-                      backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(56,189,248,0.12)",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.4)"
-                    }}
-                    whileHover={{ 
-                      borderColor: colors.border, 
-                      boxShadow: `0 24px 64px rgba(0,0,0,0.6), 0 0 60px ${colors.glow}`, 
-                      y: -10,
-                      scale: 1.02,
-                      transition: { duration: 0.3, ease: "easeOut" }
-                    }}
+          <div className="flex flex-wrap items-center gap-2 mb-10 font-mono text-xs">
+            {filters.map((f) => {
+              const count =
+                f === "All"
+                  ? projectList.length
+                  : projectList.filter((p) => p.category === f).length;
+              return (
+                <button
+                  key={f}
+                  onClick={() => setActive(f)}
+                  className={`px-3.5 py-1.5 rounded transition-all flex items-center gap-2 ${
+                    active === f
+                      ? "bg-[#F59E0B] text-[#090A0C] font-semibold"
+                      : "bg-[#0E1015] border border-[#232733] text-[#8A909E] hover:text-[#F4F5F7] hover:border-[#8A909E]/30"
+                  }`}
+                >
+                  <span>{f}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded ${
+                      active === f
+                        ? "bg-[#090A0C]/20 text-[#090A0C]"
+                        : "bg-[#14171E] text-[#525866]"
+                    }`}
                   >
-                    {/* Image */}
-                    <div className="relative h-56 overflow-hidden flex-shrink-0">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                      {/* Gradient overlay to blend image bottom into card */}
-                      <div className="absolute inset-0"
-                        style={{ background: "linear-gradient(to top, rgba(8,15,24,0.95) 0%, rgba(8,15,24,0.1) 70%, transparent 100%)" }} />
-                      
-                      <div className="project-card-overlay absolute inset-0 flex items-end justify-end p-4 gap-3">
-                        {project.liveUrl && (
-                          <motion.a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-                            aria-label={`View live demo of ${project.title}`}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                            style={{ background: "rgba(56,189,248,0.85)", backdropFilter: "blur(8px)" }}
-                            whileHover={{ scale: 1.15 }}
-                            onClick={e => e.stopPropagation()}>
-                            <ArrowSquareOut size={20} weight="bold" />
-                          </motion.a>
-                        )}
-                        {project.githubUrl && (
-                          <motion.a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                            aria-label={`View GitHub repository for ${project.title}`}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                            style={{ background: "rgba(14,28,43,0.85)", backdropFilter: "blur(8px)", border: "1px solid rgba(56,189,248,0.25)" }}
-                            whileHover={{ scale: 1.15 }}
-                            onClick={e => e.stopPropagation()}>
-                            <GithubLogo size={20} weight="bold" />
-                          </motion.a>
-                        )}
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Project Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((proj, idx) => {
+              const catStyle = categoryAccents[proj.category] || categoryAccents["Full Stack"];
+              return (
+                <div
+                  key={proj.id}
+                  className={`studio-surface rounded-lg border border-[#232733] ${catStyle.glow} transition-all duration-200 overflow-hidden flex flex-col justify-between group hover:-translate-y-1`}
+                >
+                  <div>
+                    {/* Visual Screenshot Frame */}
+                    <div className="relative aspect-[16/10] w-full bg-[#050608] border-b border-[#232733] overflow-hidden">
+                      {/* Browser Mini Header */}
+                      <div className="absolute top-0 left-0 right-0 z-20 bg-[#14171E]/90 backdrop-blur-sm px-3 py-1.5 border-b border-[#232733] flex items-center justify-between font-mono text-[10px]">
+                        <div className="flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-[#EF4444]/70 inline-block" />
+                          <span className="w-2 h-2 rounded-full bg-[#F59E0B]/70 inline-block" />
+                          <span className="w-2 h-2 rounded-full bg-[#10B981]/70 inline-block" />
+                        </div>
+                        <span className="text-[#8A909E] text-[9px] uppercase tracking-wider truncate max-w-[150px]">
+                          SYS-0{idx + 1} {"//"} {proj.category}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="Live Demo"
+                              className="text-[#8A909E] hover:text-[#10B981] transition-colors p-0.5"
+                            >
+                              <Globe size={12} />
+                            </a>
+                          )}
+                          {proj.githubUrl && (
+                            <a
+                              href={proj.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="GitHub Repository"
+                              className="text-[#8A909E] hover:text-[#F4F5F7] transition-colors p-0.5"
+                            >
+                              <GithubLogo size={12} />
+                            </a>
+                          )}
+                        </div>
                       </div>
-                      {/* Category badge */}
-                      <div className="absolute top-4 left-4">
-                        <span className="text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg"
-                          style={{
-                            background: colors.bg,
-                            color: colors.text,
-                            border: `1px solid ${colors.border}`,
-                          }}>
-                          {project.category}
+
+                      {/* Main Screenshot with Hover Zoom */}
+                      <Link href={`/project/${proj.id}`} className="block w-full h-full pt-6">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={proj.image}
+                            alt={proj.title}
+                            fill
+                            className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0E1015] via-transparent to-transparent opacity-80" />
+                        </div>
+                      </Link>
+
+                      {/* Category Badge */}
+                      <div className="absolute bottom-3 left-3 z-10">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-mono text-[10px] uppercase font-semibold border ${catStyle.badge}`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${catStyle.dot}`} />
+                          {proj.category}
                         </span>
                       </div>
                     </div>
-  
-                    {/* Content */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="font-bold text-xl mb-3 leading-tight transition-colors"
-                        style={{ color: "#e8eef4", letterSpacing: "-0.01em" }}>
-                        {project.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed mb-6 line-clamp-3 flex-grow" style={{ color: "#8a9bb0" }}>
-                        {project.description}
-                      </p>
-  
-                      {/* Tech stack */}
-                      <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-                        {project.tech.slice(0, 4).map((t) => (
-                          <span key={t} className="tech-badge">{t}</span>
-                        ))}
-                        {project.tech.length > 4 && (
-                          <span className="tech-badge">+{project.tech.length - 4}</span>
-                        )}
-                      </div>
-  
-                      {/* Footer */}
-                      <div className="flex items-center justify-between pt-4"
-                        style={{ borderTop: "1px solid rgba(56,189,248,0.08)" }}>
-                        <Link href={`/project/${project.id}`}
-                          className="inline-flex items-center gap-2 text-sm font-bold transition-all duration-300 group/link"
-                          style={{ color: colors.text }}>
-                          View Details
-                          <motion.span
-                            className="inline-flex"
-                            animate={{ x: [0, 4, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                          >
-                            <ArrowRight size={18} weight="bold" />
-                          </motion.span>
-                        </Link>
 
-                        {project.featured && (
-                          <Star size={16} weight="fill" style={{ color: "#f59e0b" }} />
+                    {/* Card Content Body */}
+                    <div className="p-5 space-y-3">
+                      <div>
+                        <div className="flex items-center justify-between font-mono text-[11px] text-[#525866] mb-1">
+                          <span>{proj.role || "Lead Engineer"}</span>
+                          <span>{proj.duration || "Production"}</span>
+                        </div>
+                        <Link href={`/project/${proj.id}`}>
+                          <h3 className="font-display font-bold text-base text-[#F4F5F7] group-hover:text-[#F59E0B] transition-colors leading-snug line-clamp-1">
+                            {proj.title}
+                          </h3>
+                        </Link>
+                      </div>
+
+                      <p className="text-xs text-[#8A909E] font-sans line-clamp-2 leading-relaxed">
+                        {proj.description}
+                      </p>
+
+                      {/* Primary Innovation Highlight */}
+                      {proj.features?.[0] && (
+                        <div className="p-2 rounded bg-[#090A0C] border border-[#232733] font-mono text-[11px] text-[#D1D5DB] flex items-start gap-2">
+                          <span className="text-[#F59E0B] font-bold">▸</span>
+                          <span className="line-clamp-1 text-[11px]">{proj.features[0]}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="p-5 pt-0 border-t border-[#232733]/60 mt-3 space-y-3">
+                    <div className="flex flex-wrap gap-1 font-mono text-[10px] text-[#8A909E] pt-3">
+                      {proj.tech.slice(0, 4).map((t) => (
+                        <span
+                          key={t}
+                          className="px-2 py-0.5 rounded bg-[#14171E] border border-[#232733]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                      {proj.tech.length > 4 && (
+                        <span className="px-1.5 py-0.5 text-[#525866]">
+                          +{proj.tech.length - 4}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-1">
+                      <Link
+                        href={`/project/${proj.id}`}
+                        className="inline-flex items-center gap-1.5 font-mono text-xs text-[#F59E0B] hover:text-[#FBBF24] font-semibold transition-colors group-hover:translate-x-0.5"
+                      >
+                        <span>VIEW CASE STUDY</span>
+                        <ArrowUpRight size={13} weight="bold" />
+                      </Link>
+
+                      <div className="flex items-center gap-2 font-mono text-[11px]">
+                        {proj.liveUrl && (
+                          <a
+                            href={proj.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#8A909E] hover:text-[#10B981] transition-colors"
+                          >
+                            Live ↗
+                          </a>
+                        )}
+                        {proj.githubUrl && (
+                          <a
+                            href={proj.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#8A909E] hover:text-[#F4F5F7] transition-colors"
+                          >
+                            Code ↗
+                          </a>
                         )}
                       </div>
                     </div>
-                  </motion.article>
-                );
-              })}
-            </AnimatePresence>
-          </motion.div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </main>
       <Footer />

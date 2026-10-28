@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { List, X, ArrowUpRight } from "@phosphor-icons/react";
 import BrandLogo from "../ui/BrandLogo";
 
 const navItems = [
-  { id: "systems", num: "01", label: "SYSTEMS", href: "#systems" },
-  { id: "dossier", num: "02", label: "DOSSIER", href: "#dossier" },
-  { id: "architecture", num: "03", label: "ARCHITECTURE", href: "#architecture" },
-  { id: "channel", num: "04", label: "CHANNEL", href: "#channel" },
+  { id: "systems", num: "01", label: "SYSTEMS", href: "/#systems" },
+  { id: "dossier", num: "02", label: "DOSSIER", href: "/#dossier" },
+  { id: "architecture", num: "03", label: "ARCHITECTURE", href: "/#architecture" },
+  { id: "channel", num: "04", label: "CHANNEL", href: "/#channel" },
 ];
 
 export default function Navbar() {
@@ -32,8 +33,11 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = (e, id) => {
-    e.preventDefault();
     setMobileOpen(false);
+    if (typeof window !== "undefined" && window.location.pathname !== "/") {
+      return;
+    }
+    e.preventDefault();
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -49,14 +53,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between">
         {/* Brand & Telemetry */}
         <div className="flex items-center gap-6">
-          <a
-            href="#systems"
+          <Link
+            href="/#systems"
             onClick={(e) => scrollTo(e, "systems")}
             className="flex items-center"
             aria-label="Home"
           >
             <BrandLogo />
-          </a>
+          </Link>
 
           {/* Live Telemetry Pill (Desktop) */}
           <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-[#14171E] border border-[#232733] rounded text-[11px] font-mono text-[#8A909E]">
@@ -72,7 +76,7 @@ export default function Navbar() {
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
-              <a
+              <Link
                 key={item.id}
                 href={item.href}
                 onClick={(e) => scrollTo(e, item.id)}
@@ -84,18 +88,18 @@ export default function Navbar() {
               >
                 <span className="text-[10px] text-[#525866]">{item.num}</span>
                 <span>{item.label}</span>
-              </a>
+              </Link>
             );
           })}
 
-          <a
-            href="#channel"
+          <Link
+            href="/#channel"
             onClick={(e) => scrollTo(e, "channel")}
             className="ml-3 btn-signal py-1.5 px-3.5 text-xs font-mono"
           >
             INITIATE BRIEF
             <ArrowUpRight size={13} weight="bold" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -116,7 +120,7 @@ export default function Navbar() {
             <span>STATUS: OPEN FOR CONTRACTS (UTC+2)</span>
           </div>
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.id}
               href={item.href}
               onClick={(e) => scrollTo(e, item.id)}
@@ -124,16 +128,16 @@ export default function Navbar() {
             >
               <span>{item.label}</span>
               <span className="text-[#F59E0B]">{item.num}</span>
-            </a>
+            </Link>
           ))}
-          <a
-            href="#channel"
+          <Link
+            href="/#channel"
             onClick={(e) => scrollTo(e, "channel")}
             className="w-full btn-signal mt-4 py-3 text-xs justify-center"
           >
             INITIATE BRIEF
             <ArrowUpRight size={14} weight="bold" />
-          </a>
+          </Link>
         </div>
       )}
     </nav>
